@@ -1,63 +1,60 @@
-# ⚡ Cyber Runner 3D: Neon Overdrive (AAA Edition)
+# ⚡ WIPEOUT // OVERDRIVE — Anti-Gravity Racing (AAA Edition)
 
-Next-generation high-speed 3D synthwave arcade runner powered by Three.js, Web Audio procedural synthesis, and WebGL post-processing.
+An authentic, dark industrial anti-gravity arcade racer inspired by the classic **WipEout** and **Redout** heritage, rendered in WebGL with Three.js, PBR materials, mechanical airbrake drifting, and procedural industrial breakbeat audio.
 
 ![Gameplay Preview](preview.png)
 
 ## 🕹 Live Web Game
-Play directly in browser: [https://adamhasani.github.io/cyber-runner-3d/](https://adamhasani.github.io/cyber-runner-3d/)
+Play directly in your browser: [https://adamhasani.github.io/cyber-runner-3d/](https://adamhasani.github.io/cyber-runner-3d/)
 
 ---
 
-## 🚀 Key Features & AAA Enhancements
+## 🚀 Key Features & Architectural Overhaul
 
-1. **Next-Gen WebGL Post-Processing Pipeline**:
-   - **UnrealBloomPass**: Emissive luminescence on neon curbs, plasma thrusters, glowing billboards, and laser gates.
-   - **Custom Cyberpunk Post-Shader**: Radial chromatic aberration with sharp center focal tracking, dynamic CRT scanlines, screen glitch impacts, and radial motion blur during nitro overdrive.
-   - **Bloom Quality Toggle**: Switchable on-the-fly via the top-right HUD button (`✨ BLOOM: ON/OFF`).
+1. **Art Direction: Dark Gritty Industrial Sci-Fi**:
+   - Zero generic neon/synthwave tropes: built with an austere palette of titanium carbon-black, hazard amber (`#ff6a00`), and tactical telemetry cyan (`#00f0ff`).
+   - Brutalist megastructure skyline with communication towers, synchronized red obstruction beacons, and high-voltage mag-accel overhead gantries.
 
-2. **High-Fidelity Hovercraft & Aerodynamics**:
-   - Aerodynamic delta wings with active elevon flaps (ailerons) that articulate smoothly during steering.
-   - Dynamic banking & roll physics with realistic port/starboard thruster flares.
-   - Dual glowing plasma exhaust cones with turbulent particle spark trails.
-   - Forward spotlight illumination casting dynamic specular reflections across wet asphalt tarmac.
+2. **Advanced PBR Materials & Road Mechanics**:
+   - Wet basalt/concrete composite roadway with procedural tarmac grain, expansion seams, and worn center dashed guides.
+   - Realistic specular surface reflection balanced under ACES Filmic Tone Mapping without blown-out light pools.
+   - Dual-color atmospheric lighting: cool cyan guide-wash on the port curb contrasted with warm industrial sodium amber on starboard.
 
-3. **Living Cyber Cityscape & Highway Architecture**:
-   - Towering skyscrapers with procedural illuminated window matrices in neon cyan, pink, and amber.
-   - Rooftop antenna masts with synchronized red aviation warning beacons.
-   - Overhead truss gantries with glowing holographic signage.
-   - High-speed elevated maglev bullet train traversing above the city skyline.
+3. **Bespoke Anti-Gravity Craft & Airbrake Physics**:
+   - Faceted stealth monocoque fuselage with polarized pilot canopy and high-output twin jet turbine pods.
+   - **Articulated Mechanical Airbrakes**: Dual carbon-composite elevon flaps with hazard chevron plates and hydraulic chrome pistons that actuate dynamically during turns and drift deceleration.
+   - **G-Force Centrifugal Camera Roll**: Chase camera calculates dynamic roll banking matching craft inertia and lateral G-load.
 
-4. **Dynamic Hazard & Traffic System**:
-   - **Neon Barriers**: Jumpable obstacles requiring timing precision.
-   - **Dual Plasma Laser Gates**: Pulsating laser beams traversing across lanes.
-   - **EMP Sentry Drones**: Floating gyroscopic mines with sinusoidal oscillating sweep paths.
-   - **Autonomous Cyber Cargo Haulers**: Moving traffic vehicles cruising forward at 22 km/h. Tailgate directly behind them to trigger **⚡ Slipstream Drafting** (+Speed & free Nitro recharge!).
-   - **Boost Launch Pads**: High-velocity road arrow strips that launch hovercraft into instant supersonic overdrive (+500 pts).
+4. **Deep Racing Mechanics**:
+   - **Airbrake Drifting** (`S` / `▼` or `[DRFT]` button): Engage lateral airbrakes into corners to build the **G-FLOW** combo multiplier up to **5.0x** and trigger blue-arc skid sparks.
+   - **Ion Afterburner** (`SHIFT` or `[BOOST]`): Unleash high-mach boost with chromatic aberration and shockwave camera shake to obliterate blast obstacles.
+   - **Supersonic Jump** (`SPACE` / `▲`): Clear heavy blast doors and elevated track barriers.
+   - **Near Miss Multipliers**: Shaving hazards by centimeters awards tactical score bonuses.
 
-5. **Procedural Web Audio Synthwave Engine & Neural Co-Pilot**:
-   - Built-in multi-oscillator 128 BPM Synthwave synthesizer (kick, snare, hi-hats, arpeggiated bassline).
-   - Dynamic hovercraft engine sound that smoothly shifts pitch based on real-time speed (80 Hz to 350 Hz).
-   - High-impact sound effects: Jump, Sonic Boom Boost, Near Miss Whoosh, Shield Absorption, and Crash.
-   - Real-time voice telemetry co-pilot via Speech Synthesis announcing system updates (*"Hyperdrive active"*, *"Shield matrix online"*, *"Near miss!"*).
+5. **Procedural Industrial Breakbeat Synthesizer & AI Tactical Comms**:
+   - Built-in multi-channel 134 BPM breakbeat audio engine generated entirely via Web Audio API (industrial punch kicks, filtered bandpass snares, metallic square hi-hats, and detuned Reese synth bass).
+   - Dynamic jet turbine pitch shifting smoothly tracking craft speed (110 Hz to 350 Hz).
+   - Diegetic tactile audio FX: hydraulic airbrake hissing, sonic boom shockwaves, kinetic shield deflection, and heavy metal impacts.
+   - Real-time aerospace flight telemetry voice synthesizer announcing system state updates.
 
 ---
 
-## 🎮 Controls
+## 🎮 Flight Controls
 
-| Action | Keyboard | Touch / Mobile |
+| Flight Action | Keyboard | Touch / Mobile |
 | :--- | :--- | :--- |
-| **Steer & Bank** | `A` / `D` or `◀` / `▶` | Left / Right D-Pad |
-| **Supersonic Jump** | `SPACE` or `▲` / `W` | Jump Button (`▲`) |
-| **Nitro Hyperdrive** | `SHIFT` or `E` | Boost Button (`⚡`) |
-| **Air Brake** | `S` or `▼` | - |
-| **Audio Toggle** | Click `SFX/BGM: ON` | Tap HUD Toggle |
-| **Bloom Toggle** | Click `BLOOM: ON` | Tap HUD Toggle |
+| **Steer AG-Craft** | `A` / `D` or `◀` / `▶` | Left / Right D-Pad |
+| **Airbrake Drift** | `S` or `▼` | `[DRFT]` Button |
+| **Supersonic Jump** | `SPACE` or `▲` / `W` | Jump (`SPACE`) |
+| **Ion Afterburner** | `SHIFT` or `E` | `[BOOST]` Button |
+| **Comms Audio** | Click `COMMS // LINKED` | Tap HUD Toggle |
+| **Optics Pipeline** | Click `OPTICS // HDR` | Tap HUD Toggle |
 
 ---
 
 ## 🛠 Tech Stack
-- **Engine**: Three.js (r128)
-- **Post-Processing**: Three.js EffectComposer, UnrealBloomPass, ShaderPass
-- **Audio**: Web Audio API (Procedural Synthesizer) & Web Speech API
+- **Graphics Engine**: Three.js (r128)
+- **Post-Processing**: Three.js EffectComposer, UnrealBloomPass, Custom GLSL ShaderPass
+- **Tone Mapping**: ACESFilmicToneMapping (Exposure: 1.2)
+- **Audio Synthesizer**: Web Audio API (Procedural multi-oscillator breakbeat engine) & Web Speech API
 - **Deployment**: GitHub Pages (Fastly CDN)

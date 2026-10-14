@@ -3,18 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>CYBER RUNNER 3D: NEON OVERDRIVE (AAA EDITION)</title>
-  <meta name="description" content="Next-Gen 3D Cyberpunk High-Speed Arcade Runner with Post-Processing Bloom, Procedural PBR Textures, and Web Audio Synthwave.">
+  <title>WIPEOUT // OVERDRIVE - ANTI-GRAVITY RACING (AAA EDITION)</title>
+  <meta name="description" content="Next-Gen Anti-Gravity Arcade Racing with Industrial Sci-Fi Art Direction, PBR Wet Asphalt, Airbrake Drifting, and Industrial Breakbeat Audio.">
   <style>
     :root {
-      --neon-cyan: #00ffff;
-      --neon-pink: #ff007f;
-      --neon-yellow: #ffe600;
-      --neon-purple: #9d00ff;
-      --neon-green: #00ff88;
-      --bg-dark: #05020f;
-      --glass-bg: rgba(12, 8, 26, 0.75);
-      --glass-border: rgba(0, 255, 255, 0.35);
+      --tech-orange: #ff6a00;
+      --tech-cyan: #00f0ff;
+      --tech-amber: #ffaa00;
+      --tech-red: #ff1e38;
+      --tech-green: #00ff66;
+      --carbon-bg: rgba(10, 12, 16, 0.85);
+      --font-mono: 'SF Mono', 'Roboto Mono', 'Fira Code', 'Consolas', monospace;
     }
 
     * {
@@ -23,14 +22,14 @@
       padding: 0;
       user-select: none;
       -webkit-user-select: none;
-      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     }
 
     html, body {
       width: 100%;
       height: 100%;
       overflow: hidden;
-      background-color: var(--bg-dark);
+      background-color: #040608;
       color: #fff;
     }
 
@@ -43,7 +42,7 @@
       z-index: 1;
     }
 
-    /* --- AAA COCKPIT HUD OVERLAY --- */
+    /* --- TACTICAL AEROSPACE HUD OVERLAY --- */
     #hud-overlay {
       position: absolute;
       top: 0;
@@ -55,10 +54,9 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      padding: 22px 28px;
+      padding: 24px 32px;
     }
 
-    /* Top HUD Bar */
     .hud-top-bar {
       display: flex;
       justify-content: space-between;
@@ -66,90 +64,95 @@
       gap: 16px;
     }
 
-    .hud-card {
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: 12px;
+    .tech-panel {
+      background: var(--carbon-bg);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-left: 3px solid var(--tech-orange);
+      border-radius: 4px;
       padding: 10px 18px;
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      box-shadow: 0 4px 24px rgba(0, 255, 255, 0.15), inset 0 0 12px rgba(0, 255, 255, 0.05);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
       pointer-events: auto;
     }
 
-    .score-title {
-      font-size: 11px;
-      font-weight: 800;
+    .telemetry-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
       letter-spacing: 2px;
-      color: var(--neon-cyan);
+      color: #8a9ba8;
       text-transform: uppercase;
       margin-bottom: 2px;
-      text-shadow: 0 0 8px rgba(0, 255, 255, 0.6);
     }
 
-    .score-value {
-      font-size: 30px;
+    .telemetry-value {
+      font-family: var(--font-mono);
+      font-size: 28px;
       font-weight: 900;
       font-variant-numeric: tabular-nums;
       letter-spacing: 2px;
       color: #ffffff;
-      text-shadow: 0 0 14px rgba(0, 255, 255, 0.8), 0 0 28px var(--neon-cyan);
+      text-shadow: 0 0 16px rgba(255, 106, 0, 0.6);
     }
 
-    .highscore-tag {
-      font-size: 11px;
-      color: #aaa;
-      font-weight: 600;
-      letter-spacing: 1px;
-      margin-top: 2px;
+    .telemetry-sub {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: #728496;
+      letter-spacing: 1.5px;
+      margin-top: 3px;
     }
 
-    .stats-right {
+    .top-right-cluster {
       display: flex;
       flex-direction: column;
       align-items: flex-end;
       gap: 10px;
     }
 
-    .multiplier-box {
-      background: linear-gradient(135deg, rgba(255, 0, 127, 0.3), rgba(157, 0, 255, 0.3));
-      border: 1px solid var(--neon-pink);
-      box-shadow: 0 0 18px rgba(255, 0, 127, 0.4);
+    .drift-multiplier-box {
+      background: var(--carbon-bg);
+      border: 1px solid rgba(0, 240, 255, 0.35);
+      border-right: 3px solid var(--tech-cyan);
+      border-radius: 4px;
+      padding: 8px 16px;
       display: flex;
       align-items: baseline;
-      gap: 6px;
-      padding: 6px 14px;
-      border-radius: 10px;
+      gap: 8px;
     }
 
-    .multiplier-label {
-      font-size: 11px;
+    .drift-mult-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
       font-weight: 800;
-      color: var(--neon-pink);
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
+      color: var(--tech-cyan);
     }
 
-    .multiplier-val {
-      font-size: 24px;
+    .drift-mult-val {
+      font-family: var(--font-mono);
+      font-size: 22px;
       font-weight: 900;
       color: #fff;
-      text-shadow: 0 0 10px var(--neon-pink);
+      text-shadow: 0 0 12px var(--tech-cyan);
     }
 
-    .hud-controls-row {
+    .hud-btn-row {
       display: flex;
       gap: 8px;
     }
 
     .hud-btn {
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      color: var(--neon-cyan);
-      font-size: 11px;
+      background: rgba(16, 20, 28, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #c0cfdb;
+      font-family: var(--font-mono);
+      font-size: 10px;
       font-weight: 700;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
       padding: 6px 12px;
-      border-radius: 8px;
+      border-radius: 3px;
       cursor: pointer;
       pointer-events: auto;
       transition: all 0.2s ease;
@@ -159,36 +162,61 @@
     }
 
     .hud-btn:hover {
-      background: rgba(0, 255, 255, 0.25);
-      box-shadow: 0 0 12px var(--neon-cyan);
+      background: rgba(255, 106, 0, 0.3);
+      border-color: var(--tech-orange);
       color: #fff;
     }
 
-    /* Center Alert / Notification Banner */
-    #alert-banner {
+    /* CENTER NOTIFICATIONS & DRIFT TAG */
+    #tactical-alert {
       position: absolute;
-      top: 22%;
+      top: 18%;
       left: 50%;
-      transform: translate(-50%, -50%) scale(0.8);
-      font-size: 26px;
+      transform: translate(-50%, -50%) scale(0.9);
+      font-family: var(--font-mono);
+      font-size: 24px;
       font-weight: 900;
-      letter-spacing: 4px;
+      letter-spacing: 5px;
       text-transform: uppercase;
       text-align: center;
-      color: var(--neon-yellow);
-      text-shadow: 0 0 20px var(--neon-yellow), 0 0 40px rgba(255, 230, 0, 0.6);
+      color: var(--tech-orange);
+      text-shadow: 0 0 20px rgba(255, 106, 0, 0.8), 0 0 40px rgba(255, 106, 0, 0.4);
       opacity: 0;
-      transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transition: all 0.25s cubic-bezier(0.1, 0.9, 0.2, 1);
       pointer-events: none;
       z-index: 15;
     }
 
-    #alert-banner.show {
+    #tactical-alert.show {
       opacity: 1;
-      transform: translate(-50%, -50%) scale(1.1);
+      transform: translate(-50%, -50%) scale(1.05);
     }
 
-    /* Floating Score Popups Container */
+    #drift-status-banner {
+      position: absolute;
+      bottom: 110px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 240, 255, 0.15);
+      border: 1px solid var(--tech-cyan);
+      padding: 5px 20px;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 3px;
+      color: var(--tech-cyan);
+      text-shadow: 0 0 10px var(--tech-cyan);
+      opacity: 0;
+      transition: opacity 0.15s ease;
+      z-index: 14;
+    }
+
+    #drift-status-banner.active {
+      opacity: 1;
+    }
+
+    /* FLOATING COMBAT TEXT */
     #floating-popups {
       position: absolute;
       top: 0;
@@ -200,48 +228,25 @@
       z-index: 12;
     }
 
-    .popup-text {
+    .combat-text {
       position: absolute;
+      font-family: var(--font-mono);
       font-weight: 900;
-      font-size: 19px;
-      letter-spacing: 1.5px;
-      text-shadow: 0 0 12px currentColor;
-      animation: floatUpFade 1.2s forwards cubic-bezier(0.1, 0.9, 0.2, 1);
+      font-size: 16px;
+      letter-spacing: 2px;
+      text-shadow: 0 0 10px currentColor;
+      animation: combatFloat 1.1s forwards cubic-bezier(0.1, 0.9, 0.2, 1);
       transform: translate(-50%, -50%);
     }
 
-    @keyframes floatUpFade {
-      0% { opacity: 0; transform: translate(-50%, 0) scale(0.6); }
-      20% { opacity: 1; transform: translate(-50%, -15px) scale(1.15); }
-      80% { opacity: 1; transform: translate(-50%, -45px) scale(1.0); }
-      100% { opacity: 0; transform: translate(-50%, -65px) scale(0.9); }
+    @keyframes combatFloat {
+      0% { opacity: 0; transform: translate(-50%, 0) scale(0.7); }
+      15% { opacity: 1; transform: translate(-50%, -15px) scale(1.1); }
+      80% { opacity: 1; transform: translate(-50%, -40px) scale(1.0); }
+      100% { opacity: 0; transform: translate(-50%, -60px) scale(0.9); }
     }
 
-    /* Slipstream Drafting Tag */
-    #drafting-tag {
-      position: absolute;
-      bottom: 115px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(0, 255, 136, 0.22);
-      border: 1px solid var(--neon-green);
-      padding: 4px 18px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 2px;
-      color: var(--neon-green);
-      text-shadow: 0 0 10px var(--neon-green);
-      opacity: 0;
-      transition: opacity 0.2s ease;
-      z-index: 14;
-    }
-
-    #drafting-tag.active {
-      opacity: 1;
-    }
-
-    /* Bottom HUD Bar */
+    /* BOTTOM TELEMETRY BAR */
     .hud-bottom-bar {
       display: flex;
       justify-content: space-between;
@@ -249,99 +254,105 @@
       gap: 16px;
     }
 
-    .gauge-card {
-      min-width: 280px;
+    .capacitor-panel {
+      min-width: 270px;
       padding: 10px 16px;
     }
 
-    .gauge-label {
+    .capacitor-header {
       display: flex;
       justify-content: space-between;
-      font-size: 11px;
+      font-family: var(--font-mono);
+      font-size: 10px;
       font-weight: 800;
       letter-spacing: 1.5px;
-      color: var(--neon-cyan);
+      color: #8a9ba8;
       margin-bottom: 6px;
-      gap: 14px;
     }
 
-    .bar-outer {
+    .capacitor-track {
       width: 100%;
-      height: 10px;
+      height: 8px;
       background: rgba(255, 255, 255, 0.1);
-      border-radius: 5px;
+      border-radius: 2px;
       overflow: hidden;
-      border: 1px solid rgba(0, 255, 255, 0.2);
+      border: 1px solid rgba(255, 106, 0, 0.3);
       position: relative;
     }
 
-    .bar-inner {
+    .capacitor-fill {
       height: 100%;
       width: 50%;
-      background: linear-gradient(90deg, #0088ff, var(--neon-cyan), #ffffff);
-      box-shadow: 0 0 14px var(--neon-cyan);
+      background: linear-gradient(90deg, #ff3b00, var(--tech-orange), #ffdd00);
+      box-shadow: 0 0 12px var(--tech-orange);
       transition: width 0.1s linear;
     }
 
-    /* Sleek Low-Profile Speedometer */
-    .speed-card {
+    /* CENTER SPEEDOMETER GAUGE */
+    .speedo-panel {
       display: flex;
       flex-direction: column;
       align-items: center;
-      min-width: 130px;
-      padding: 8px 14px;
-      background: rgba(12, 8, 26, 0.65);
+      min-width: 160px;
+      padding: 8px 18px;
+      background: var(--carbon-bg);
+      border-bottom: 3px solid var(--tech-orange);
     }
 
-    .speed-number {
-      font-size: 34px;
+    .speedo-val {
+      font-family: var(--font-mono);
+      font-size: 38px;
       font-weight: 900;
-      line-height: 1;
+      line-height: 0.95;
       color: #fff;
-      text-shadow: 0 0 14px var(--neon-pink), 0 0 28px var(--neon-pink);
+      text-shadow: 0 0 16px rgba(255, 106, 0, 0.6);
       letter-spacing: 2px;
     }
 
-    .speed-unit {
-      font-size: 10px;
+    .speedo-unit {
+      font-family: var(--font-mono);
+      font-size: 9px;
       font-weight: 800;
       letter-spacing: 2px;
-      color: var(--neon-pink);
-      margin-top: 1px;
+      color: var(--tech-orange);
+      margin-top: 3px;
     }
 
-    .mach-indicator {
-      font-size: 11px;
+    .gforce-val {
+      font-family: var(--font-mono);
+      font-size: 10px;
       font-weight: 700;
-      color: #aaa;
+      color: #8a9ba8;
       letter-spacing: 1px;
-      margin-top: 1px;
+      margin-top: 2px;
     }
 
-    .status-card {
+    .systems-panel {
       display: flex;
       flex-direction: column;
       gap: 6px;
-      font-size: 12px;
+      font-family: var(--font-mono);
+      font-size: 11px;
       font-weight: 700;
       letter-spacing: 1px;
       padding: 10px 16px;
+      border-left: 3px solid var(--tech-cyan);
     }
 
-    .status-row {
+    .system-row {
       display: flex;
       align-items: center;
       gap: 8px;
     }
 
-    .status-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background-color: #666;
+    .system-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 2px;
+      background-color: #555;
     }
 
-    /* Virtual Mobile Touch Controls */
+    /* TOUCH CONTROLS FOR MOBILE */
     #touch-controls {
       display: none;
       position: absolute;
@@ -356,41 +367,40 @@
 
     .touch-cluster {
       display: flex;
-      gap: 16px;
+      gap: 14px;
       pointer-events: auto;
     }
 
     .touch-btn {
-      width: 66px;
-      height: 66px;
-      border-radius: 50%;
-      background: rgba(14, 8, 30, 0.75);
-      border: 2px solid var(--neon-cyan);
+      width: 64px;
+      height: 64px;
+      border-radius: 8px;
+      background: rgba(14, 18, 26, 0.85);
+      border: 1px solid var(--tech-orange);
       color: #fff;
-      font-size: 24px;
+      font-family: var(--font-mono);
+      font-size: 22px;
       font-weight: 900;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 0 16px rgba(0, 255, 255, 0.3);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
       touch-action: manipulation;
     }
 
     .touch-btn:active {
-      background: rgba(0, 255, 255, 0.4);
-      transform: scale(0.92);
+      background: rgba(255, 106, 0, 0.4);
+      transform: scale(0.94);
     }
 
     .touch-btn-boost {
-      border-color: var(--neon-yellow);
-      box-shadow: 0 0 16px rgba(255, 230, 0, 0.35);
-      color: var(--neon-yellow);
+      border-color: var(--tech-orange);
+      color: var(--tech-orange);
     }
 
-    .touch-btn-jump {
-      border-color: var(--neon-pink);
-      box-shadow: 0 0 16px rgba(255, 0, 127, 0.35);
-      color: var(--neon-pink);
+    .touch-btn-drift {
+      border-color: var(--tech-cyan);
+      color: var(--tech-cyan);
     }
 
     @media (hover: none) and (pointer: coarse), (max-width: 800px) {
@@ -400,24 +410,24 @@
       .hud-bottom-bar {
         margin-bottom: 85px;
       }
-      .gauge-card {
-        min-width: 210px;
+      .capacitor-panel {
+        min-width: 200px;
       }
-      .score-value {
+      .telemetry-value {
         font-size: 24px;
       }
     }
 
-    /* --- MODALS (START, GAMEOVER) --- */
+    /* MODAL PANELS */
     .modal-backdrop {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(4, 2, 10, 0.6);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      background: rgba(4, 6, 9, 0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -431,83 +441,89 @@
     }
 
     .modal-box {
-      background: rgba(14, 9, 30, 0.9);
-      border: 2px solid var(--neon-cyan);
-      box-shadow: 0 0 45px rgba(0, 255, 255, 0.3), inset 0 0 25px rgba(0, 255, 255, 0.15);
-      border-radius: 20px;
-      padding: 34px 40px;
-      max-width: 530px;
+      background: rgba(12, 15, 20, 0.95);
+      border: 1px solid rgba(255, 106, 0, 0.5);
+      border-top: 4px solid var(--tech-orange);
+      box-shadow: 0 0 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 106, 0, 0.2);
+      border-radius: 6px;
+      padding: 36px 44px;
+      max-width: 550px;
       width: 90%;
       text-align: center;
       position: relative;
     }
 
     .game-title {
+      font-family: var(--font-mono);
       font-size: 32px;
       font-weight: 900;
-      letter-spacing: 4px;
+      letter-spacing: 5px;
       color: #fff;
       text-transform: uppercase;
-      text-shadow: 0 0 18px var(--neon-cyan), 0 0 35px var(--neon-pink);
-      margin-bottom: 6px;
+      text-shadow: 0 0 20px rgba(255, 106, 0, 0.7);
+      margin-bottom: 4px;
     }
 
     .game-subtitle {
-      font-size: 13px;
+      font-family: var(--font-mono);
+      font-size: 11px;
       font-weight: 800;
-      color: var(--neon-pink);
+      color: var(--tech-orange);
       letter-spacing: 4px;
       text-transform: uppercase;
-      margin-bottom: 22px;
-      text-shadow: 0 0 10px var(--neon-pink);
+      margin-bottom: 24px;
     }
 
     .instructions-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 12px;
-      margin-bottom: 26px;
+      margin-bottom: 28px;
       text-align: left;
     }
 
     .instruction-item {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(0, 255, 255, 0.2);
-      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-left: 3px solid var(--tech-cyan);
+      border-radius: 4px;
       padding: 10px 14px;
     }
 
     .instruction-key {
+      font-family: var(--font-mono);
       font-size: 11px;
       font-weight: 800;
-      color: var(--neon-yellow);
+      color: #ffffff;
       letter-spacing: 1px;
       margin-bottom: 2px;
     }
 
     .instruction-desc {
       font-size: 12px;
-      color: #ddd;
+      color: #8fa0af;
+      line-height: 1.35;
     }
 
     .action-btn {
-      background: linear-gradient(135deg, var(--neon-cyan), #0088ff);
+      background: linear-gradient(135deg, var(--tech-orange), #d04500);
       border: none;
-      border-radius: 12px;
-      color: #000;
-      font-size: 17px;
+      border-radius: 4px;
+      color: #fff;
+      font-family: var(--font-mono);
+      font-size: 16px;
       font-weight: 900;
-      letter-spacing: 2px;
+      letter-spacing: 3px;
       padding: 14px 44px;
       cursor: pointer;
-      box-shadow: 0 0 25px rgba(0, 255, 255, 0.6);
+      box-shadow: 0 0 25px rgba(255, 106, 0, 0.5);
       transition: all 0.2s ease;
       text-transform: uppercase;
     }
 
     .action-btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 35px var(--neon-cyan), 0 0 60px var(--neon-cyan);
+      transform: scale(1.04);
+      box-shadow: 0 0 35px var(--tech-orange);
     }
 
     .action-btn:active {
@@ -515,7 +531,7 @@
     }
 
     .gameover-stats {
-      margin: 18px 0 26px;
+      margin: 20px 0 28px;
       display: flex;
       justify-content: space-around;
       border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -524,17 +540,18 @@
     }
 
     .go-stat-val {
+      font-family: var(--font-mono);
       font-size: 26px;
       font-weight: 900;
-      color: var(--neon-cyan);
-      text-shadow: 0 0 10px var(--neon-cyan);
+      color: var(--tech-orange);
     }
 
     .go-stat-lbl {
+      font-family: var(--font-mono);
       font-size: 10px;
       font-weight: 800;
-      color: #888;
-      letter-spacing: 1px;
+      color: #6a7c8c;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
       margin-top: 4px;
     }
@@ -545,61 +562,61 @@
 <body>
   <div id="canvas-container"></div>
 
-  <!-- FLOATING COMBAT & NEAR MISS POPUPS -->
+  <!-- FLOATING COMBAT & DRIFT POPUPS -->
   <div id="floating-popups"></div>
 
-  <!-- SLIPSTREAM DRAFTING INDICATOR -->
-  <div id="drafting-tag">⚡ SLIPSTREAM DRAFTING +SPEED</div>
+  <!-- AIRBRAKE DRIFTING INDICATOR -->
+  <div id="drift-status-banner">⚡ AIRBRAKE DRIFT // MULTIPLIER +SPEED</div>
 
-  <!-- COCKPIT HUD -->
+  <!-- TACTICAL AEROSPACE HUD -->
   <div id="hud-overlay">
     <div class="hud-top-bar">
-      <div class="hud-card">
-        <div class="score-title">TELEMETRY SCORE</div>
-        <div class="score-value" id="hud-score">000000</div>
-        <div class="highscore-tag" id="hud-highscore">BEST: 000000</div>
+      <div class="tech-panel">
+        <div class="telemetry-label">TELEMETRY SCORE</div>
+        <div class="telemetry-value" id="hud-score">000000</div>
+        <div class="telemetry-sub" id="hud-highscore">RECORD // 000000</div>
       </div>
 
-      <div class="stats-right">
-        <div class="multiplier-box">
-          <span class="multiplier-label">COMBO</span>
-          <span class="multiplier-val" id="hud-multiplier">x1.0</span>
+      <div class="top-right-cluster">
+        <div class="drift-multiplier-box">
+          <span class="drift-mult-label">G-FLOW</span>
+          <span class="drift-mult-val" id="hud-multiplier">x1.0</span>
         </div>
 
-        <div class="hud-controls-row">
-          <button class="hud-btn" id="btn-audio-toggle">🔊 SFX/BGM: ON</button>
-          <button class="hud-btn" id="btn-bloom-toggle">✨ BLOOM: ON</button>
+        <div class="hud-btn-row">
+          <button class="hud-btn" id="btn-audio-toggle">COMMS // LINKED</button>
+          <button class="hud-btn" id="btn-bloom-toggle">OPTICS // HDR</button>
         </div>
       </div>
     </div>
 
-    <div id="alert-banner">HYPERDRIVE ENGAGED!</div>
+    <div id="tactical-alert">AFTERBURNER ACTIVE</div>
 
     <div class="hud-bottom-bar">
-      <div class="hud-card gauge-card">
-        <div class="gauge-label">
-          <span>NITRO HYPERDRIVE</span>
-          <span id="boost-status-text" style="color: var(--neon-cyan);">READY [SHIFT]</span>
+      <div class="tech-panel capacitor-panel">
+        <div class="capacitor-header">
+          <span>ION AFTERBURNER</span>
+          <span id="boost-status-text" style="color: var(--tech-orange);">READY [SHIFT]</span>
         </div>
-        <div class="bar-outer">
-          <div class="bar-inner" id="boost-bar"></div>
+        <div class="capacitor-track">
+          <div class="capacitor-fill" id="boost-bar"></div>
         </div>
       </div>
 
-      <div class="hud-card speed-card">
-        <div class="speed-number" id="hud-speed">135</div>
-        <div class="speed-unit">KM / H</div>
-        <div class="mach-indicator" id="hud-mach">MACH 0.28</div>
+      <div class="speedo-panel">
+        <div class="speedo-val" id="hud-speed">180</div>
+        <div class="speedo-unit">KM / H</div>
+        <div class="gforce-val" id="hud-mach">MACH 0.35 // 1.2G</div>
       </div>
 
-      <div class="hud-card status-card">
-        <div class="status-row">
-          <div class="status-dot" id="shield-indicator" style="background-color: #666; box-shadow: none;"></div>
-          <span>SHIELD MATRIX: <b id="shield-status" style="color: #8888aa;">OFFLINE</b></span>
+      <div class="tech-panel systems-panel">
+        <div class="system-row">
+          <div class="system-dot" id="shield-indicator"></div>
+          <span>KINETIC DEFENSE: <b id="shield-status" style="color: #6a7c8c;">OFFLINE</b></span>
         </div>
-        <div class="status-row">
-          <div class="status-dot" style="background-color: var(--neon-pink); box-shadow: 0 0 10px var(--neon-pink);"></div>
-          <span>NEURAL CO-PILOT: <b style="color: var(--neon-pink);">ACTIVE</b></span>
+        <div class="system-row">
+          <div class="system-dot" id="airbrake-indicator" style="background-color: var(--tech-cyan); box-shadow: 0 0 6px var(--tech-cyan);"></div>
+          <span>AIRBRAKE SYSTEM: <b id="airbrake-status" style="color: var(--tech-cyan);">ACTIVE</b></span>
         </div>
       </div>
     </div>
@@ -612,78 +629,78 @@
       <button class="touch-btn" id="btn-touch-right">▶</button>
     </div>
     <div class="touch-cluster">
-      <button class="touch-btn touch-btn-jump" id="btn-touch-jump">▲</button>
-      <button class="touch-btn touch-btn-boost" id="btn-touch-boost">⚡</button>
+      <button class="touch-btn touch-btn-drift" id="btn-touch-drift">DRFT</button>
+      <button class="touch-btn touch-btn-boost" id="btn-touch-boost">BOOST</button>
     </div>
   </div>
 
-  <!-- START MODAL -->
+  <!-- LAUNCH MODAL -->
   <div class="modal-backdrop" id="start-modal">
     <div class="modal-box">
-      <div class="game-title">CYBER RUNNER 3D</div>
-      <div class="game-subtitle">NEON OVERDRIVE • AAA EDITION</div>
+      <div class="game-title">WIPEOUT // OVERDRIVE</div>
+      <div class="game-subtitle">ANTI-GRAVITY INDUSTRIAL LEAGUE</div>
 
       <div class="instructions-grid">
         <div class="instruction-item">
           <div class="instruction-key">A / D or ◀ / ▶</div>
-          <div class="instruction-desc">Steer Hovercraft with Dynamic Banking</div>
+          <div class="instruction-desc">Steer AG-Craft with Hydraulic Elevons</div>
+        </div>
+        <div class="instruction-item">
+          <div class="instruction-key">S or ▼ or [DRFT]</div>
+          <div class="instruction-desc">Airbrake Drift around corners for multiplier</div>
         </div>
         <div class="instruction-item">
           <div class="instruction-key">SPACE / ▲</div>
-          <div class="instruction-desc">Supersonic Jump over Barriers</div>
+          <div class="instruction-desc">Supersonic Jump over Blast Doors</div>
         </div>
         <div class="instruction-item">
-          <div class="instruction-key">SHIFT / E</div>
-          <div class="instruction-desc">Hyperdrive Nitro (Smash Hazards)</div>
-        </div>
-        <div class="instruction-item">
-          <div class="instruction-key">BOOST PADS &amp; DRAFTING</div>
-          <div class="instruction-desc">Hit cyan road arrows &amp; tailgate traffic</div>
+          <div class="instruction-key">SHIFT or [BOOST]</div>
+          <div class="instruction-desc">Engage Ion Afterburner (Smash Barriers)</div>
         </div>
       </div>
 
-      <button class="action-btn" id="btn-start">LAUNCH HOVERCRAFT</button>
+      <button class="action-btn" id="btn-start">ENGAGE AG-ENGINE</button>
     </div>
   </div>
 
-  <!-- GAME OVER MODAL -->
+  <!-- CRITICAL IMPACT MODAL -->
   <div class="modal-backdrop hidden" id="gameover-modal">
     <div class="modal-box">
-      <div class="game-title" style="color: #ff0055; text-shadow: 0 0 20px #ff0055;">SYSTEM CRITICAL</div>
-      <div class="game-subtitle">HOVERCRAFT COMPROMISED</div>
+      <div class="game-title" style="color: var(--tech-red); text-shadow: 0 0 20px var(--tech-red);">HULL INTEGRITY COMPROMISED</div>
+      <div class="game-subtitle">FLIGHT RECOVERY TERMINATED</div>
 
       <div class="gameover-stats">
         <div>
           <div class="go-stat-val" id="go-score">0</div>
-          <div class="go-stat-lbl">Final Score</div>
+          <div class="go-stat-lbl">Telemetry Score</div>
         </div>
         <div>
           <div class="go-stat-val" id="go-distance">0m</div>
-          <div class="go-stat-lbl">Distance</div>
+          <div class="go-stat-lbl">Sector Cleared</div>
         </div>
         <div>
           <div class="go-stat-val" id="go-cubes">0</div>
-          <div class="go-stat-lbl">Data Cores</div>
+          <div class="go-stat-lbl">Cores Harvested</div>
         </div>
       </div>
 
-      <button class="action-btn" id="btn-restart">RE-ENGAGE SYSTEM</button>
+      <button class="action-btn" id="btn-restart">RELAUNCH CRAFT</button>
     </div>
   </div>
 
   <script>
     /* =========================================================================
-       CYBER RUNNER 3D: NEON OVERDRIVE - AAA ENGINE ARCHITECTURE
+       WIPEOUT // OVERDRIVE - INDUSTRIAL SCI-FI ANTI-GRAVITY RACING ENGINE
        ========================================================================= */
 
-    // --- 1. PROCEDURAL WEB AUDIO SYNTHESIZER & AI CO-PILOT ---
-    class CyberAudioEngine {
+    // --- 1. PROCEDURAL INDUSTRIAL BREAKBEAT & HYDRAULIC AUDIO ENGINE ---
+    class IndustrialAudioEngine {
       constructor() {
         this.ctx = null;
         this.isMuted = false;
         this.bgmPlaying = false;
-        this.engineOsc1 = null;
-        this.engineOsc2 = null;
+        this.turbineOsc = null;
+        this.subDroneOsc = null;
         this.engineGain = null;
         this.lastSpoken = 0;
       }
@@ -701,7 +718,7 @@
       speak(text) {
         if (this.isMuted) return;
         const now = Date.now();
-        if (now - this.lastSpoken < 1700) return;
+        if (now - this.lastSpoken < 1600) return;
         this.lastSpoken = now;
 
         if ('speechSynthesis' in window) {
@@ -709,13 +726,13 @@
             window.speechSynthesis.cancel();
             const utter = new SpeechSynthesisUtterance(text);
             utter.rate = 1.15;
-            utter.pitch = 1.1;
-            utter.volume = 0.85;
+            utter.pitch = 0.95;
+            utter.volume = 0.9;
             const voices = window.speechSynthesis.getVoices();
-            const sciVoice = voices.find(v => v.lang.startsWith('en') && (v.name.includes('Google') || v.name.includes('Natural') || v.name.includes('Zira')));
-            if (sciVoice) utter.voice = sciVoice;
+            const aeroVoice = voices.find(v => v.lang.startsWith('en') && (v.name.includes('Natural') || v.name.includes('Google') || v.name.includes('David')));
+            if (aeroVoice) utter.voice = aeroVoice;
             window.speechSynthesis.speak(utter);
-          } catch (e) {}
+          } catch(e) {}
         }
       }
 
@@ -723,7 +740,7 @@
         if (!this.ctx || this.bgmPlaying || this.isMuted) return;
         this.bgmPlaying = true;
         this.initEngineSound();
-        this.startSynthwaveLoop();
+        this.startBreakbeatLoop();
       }
 
       stopBGM() {
@@ -739,80 +756,152 @@
         if (!this.ctx) return;
         try {
           const now = this.ctx.currentTime;
-          this.engineOsc1 = this.ctx.createOscillator();
-          this.engineOsc2 = this.ctx.createOscillator();
+          this.turbineOsc = this.ctx.createOscillator();
+          this.turbineOsc.type = 'sawtooth';
+          this.turbineOsc.frequency.setValueAtTime(110, now);
+
+          this.subDroneOsc = this.ctx.createOscillator();
+          this.subDroneOsc.type = 'sine';
+          this.subDroneOsc.frequency.setValueAtTime(55, now);
+
           const filter = this.ctx.createBiquadFilter();
-          this.engineGain = this.ctx.createGain();
-
-          this.engineOsc1.type = 'sawtooth';
-          this.engineOsc2.type = 'triangle';
-          this.engineOsc1.frequency.setValueAtTime(80, now);
-          this.engineOsc2.frequency.setValueAtTime(40, now);
-
           filter.type = 'lowpass';
-          filter.frequency.setValueAtTime(320, now);
+          filter.frequency.setValueAtTime(450, now);
 
+          this.engineGain = this.ctx.createGain();
           this.engineGain.gain.setValueAtTime(this.isMuted ? 0 : 0.08, now);
 
-          this.engineOsc1.connect(filter);
-          this.engineOsc2.connect(filter);
+          this.turbineOsc.connect(filter);
+          this.subDroneOsc.connect(filter);
           filter.connect(this.engineGain);
           this.engineGain.connect(this.ctx.destination);
 
-          this.engineOsc1.start();
-          this.engineOsc2.start();
+          this.turbineOsc.start();
+          this.subDroneOsc.start();
         } catch(e){}
       }
 
-      updateEnginePitch(speedRatio, isBoosting) {
-        if (!this.engineOsc1 || !this.ctx || !this.bgmPlaying) return;
-        const targetFreq = 80 + speedRatio * 180 + (isBoosting ? 90 : 0);
-        this.engineOsc1.frequency.setTargetAtTime(targetFreq, this.ctx.currentTime, 0.1);
-        this.engineOsc2.frequency.setTargetAtTime(targetFreq * 0.5, this.ctx.currentTime, 0.1);
+      updateEnginePitch(speedRatio, isBoosting, isDrifting) {
+        if (!this.turbineOsc || !this.ctx || !this.bgmPlaying) return;
+        const targetFreq = 110 + speedRatio * 220 + (isBoosting ? 120 : 0) + (isDrifting ? -30 : 0);
+        this.turbineOsc.frequency.setTargetAtTime(targetFreq, this.ctx.currentTime, 0.08);
+        this.subDroneOsc.frequency.setTargetAtTime(55 + speedRatio * 35, this.ctx.currentTime, 0.08);
       }
 
-      startSynthwaveLoop() {
+      startBreakbeatLoop() {
         if (!this.ctx) return;
-        const bpm = 126;
+        const bpm = 134;
         const stepTime = 60 / bpm / 4;
         let step = 0;
-        const bassNotes = [55, 55, 62, 55, 58, 55, 65, 58];
+        const bassLine = [48, 48, 0, 48, 51, 0, 48, 0, 46, 46, 0, 53, 48, 0, 50, 48];
 
         const scheduleTick = () => {
           if (!this.bgmPlaying) return;
           const now = this.ctx.currentTime;
 
-          if (step % 4 === 0) this.playKick(now);
-          if (step % 8 === 4) this.playSnare(now);
-          if (step % 2 === 1) this.playHat(now);
+          if (step === 0 || step === 6 || step === 10) this.playIndustrialKick(now);
+          if (step === 4 || step === 12) this.playHeavySnare(now);
+          if (step % 2 === 1) this.playMetalHat(now, step % 4 === 1);
 
-          const note = bassNotes[(step / 2 | 0) % bassNotes.length];
-          this.playBassNote(now, note);
+          const note = bassLine[step % bassLine.length];
+          if (note > 0) this.playReeseBass(now, note);
 
-          step = (step + 1) % 32;
+          step = (step + 1) % 16;
           setTimeout(scheduleTick, stepTime * 1000);
         };
 
         scheduleTick();
       }
 
-      playKick(time) {
+      playIndustrialKick(time) {
         if (this.isMuted || !this.ctx) return;
         const osc = this.ctx.createOscillator();
         const gain = this.ctx.createGain();
-        osc.frequency.setValueAtTime(140, time);
-        osc.frequency.exponentialRampToValueAtTime(35, time + 0.14);
-        gain.gain.setValueAtTime(0.3, time);
-        gain.gain.exponentialRampToValueAtTime(0.001, time + 0.18);
+        osc.frequency.setValueAtTime(160, time);
+        osc.frequency.exponentialRampToValueAtTime(32, time + 0.16);
+        gain.gain.setValueAtTime(0.35, time);
+        gain.gain.exponentialRampToValueAtTime(0.001, time + 0.2);
         osc.connect(gain);
         gain.connect(this.ctx.destination);
         osc.start(time);
-        osc.stop(time + 0.2);
+        osc.stop(time + 0.22);
       }
 
-      playSnare(time) {
+      playHeavySnare(time) {
         if (this.isMuted || !this.ctx) return;
-        const bufferSize = this.ctx.sampleRate * 0.15;
+        const bufferSize = this.ctx.sampleRate * 0.18;
+        const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
+        const noise = this.ctx.createBufferSource();
+        noise.buffer = buffer;
+
+        const filter = this.ctx.createBiquadFilter();
+        filter.type = 'bandpass';
+        filter.frequency.setValueAtTime(1200, time);
+        filter.Q.setValueAtTime(3.0, time);
+
+        const gain = this.ctx.createGain();
+        gain.gain.setValueAtTime(0.25, time);
+        gain.gain.exponentialRampToValueAtTime(0.001, time + 0.16);
+
+        noise.connect(filter);
+        filter.connect(gain);
+        gain.connect(this.ctx.destination);
+        noise.start(time);
+        noise.stop(time + 0.18);
+      }
+
+      playMetalHat(time, open = false) {
+        if (this.isMuted || !this.ctx) return;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(open ? 7500 : 9000, time);
+        const dur = open ? 0.08 : 0.035;
+        gain.gain.setValueAtTime(0.04, time);
+        gain.gain.exponentialRampToValueAtTime(0.0001, time + dur);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(time);
+        osc.stop(time + dur + 0.01);
+      }
+
+      playReeseBass(time, midiNote) {
+        if (this.isMuted || !this.ctx) return;
+        const freq = 440 * Math.pow(2, (midiNote - 69) / 12);
+        const osc1 = this.ctx.createOscillator();
+        const osc2 = this.ctx.createOscillator();
+        const filter = this.ctx.createBiquadFilter();
+        const gain = this.ctx.createGain();
+
+        osc1.type = 'sawtooth';
+        osc2.type = 'sawtooth';
+        osc1.frequency.setValueAtTime(freq, time);
+        osc2.frequency.setValueAtTime(freq * 1.015, time);
+
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(600, time);
+        filter.frequency.exponentialRampToValueAtTime(180, time + 0.15);
+
+        gain.gain.setValueAtTime(0.2, time);
+        gain.gain.exponentialRampToValueAtTime(0.001, time + 0.16);
+
+        osc1.connect(filter);
+        osc2.connect(filter);
+        filter.connect(gain);
+        gain.connect(this.ctx.destination);
+
+        osc1.start(time);
+        osc2.start(time);
+        osc1.stop(time + 0.18);
+        osc2.stop(time + 0.18);
+      }
+
+      playAirbrakeHiss() {
+        if (this.isMuted || !this.ctx) return;
+        const now = this.ctx.currentTime;
+        const bufferSize = this.ctx.sampleRate * 0.12;
         const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
         const data = buffer.getChannelData(0);
         for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
@@ -821,87 +910,17 @@
 
         const filter = this.ctx.createBiquadFilter();
         filter.type = 'highpass';
-        filter.frequency.setValueAtTime(800, time);
+        filter.frequency.setValueAtTime(2400, now);
 
         const gain = this.ctx.createGain();
-        gain.gain.setValueAtTime(0.18, time);
-        gain.gain.exponentialRampToValueAtTime(0.001, time + 0.14);
+        gain.gain.setValueAtTime(0.12, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.11);
 
         noise.connect(filter);
         filter.connect(gain);
         gain.connect(this.ctx.destination);
-        noise.start(time);
-        noise.stop(time + 0.15);
-      }
-
-      playHat(time) {
-        if (this.isMuted || !this.ctx) return;
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        osc.type = 'square';
-        osc.frequency.setValueAtTime(6000, time);
-        gain.gain.setValueAtTime(0.03, time);
-        gain.gain.exponentialRampToValueAtTime(0.0001, time + 0.04);
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
-        osc.start(time);
-        osc.stop(time + 0.05);
-      }
-
-      playBassNote(time, freq) {
-        if (this.isMuted || !this.ctx) return;
-        const osc = this.ctx.createOscillator();
-        const filter = this.ctx.createBiquadFilter();
-        const gain = this.ctx.createGain();
-
-        osc.type = 'sawtooth';
-        osc.frequency.setValueAtTime(freq, time);
-
-        filter.type = 'lowpass';
-        filter.frequency.setValueAtTime(500, time);
-        filter.frequency.exponentialRampToValueAtTime(140, time + 0.12);
-
-        gain.gain.setValueAtTime(0.15, time);
-        gain.gain.exponentialRampToValueAtTime(0.001, time + 0.15);
-
-        osc.connect(filter);
-        filter.connect(gain);
-        gain.connect(this.ctx.destination);
-
-        osc.start(time);
-        osc.stop(time + 0.16);
-      }
-
-      playJump() {
-        if (this.isMuted || !this.ctx) return;
-        const now = this.ctx.currentTime;
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(220, now);
-        osc.frequency.exponentialRampToValueAtTime(750, now + 0.22);
-        gain.gain.setValueAtTime(0.25, now);
-        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.22);
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
-        osc.start(now);
-        osc.stop(now + 0.24);
-      }
-
-      playBoost() {
-        if (this.isMuted || !this.ctx) return;
-        const now = this.ctx.currentTime;
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(150, now);
-        osc.frequency.linearRampToValueAtTime(950, now + 0.45);
-        gain.gain.setValueAtTime(0.35, now);
-        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.5);
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
-        osc.start(now);
-        osc.stop(now + 0.52);
+        noise.start(now);
+        noise.stop(now + 0.12);
       }
 
       playSonicBoom() {
@@ -910,46 +929,46 @@
         const osc = this.ctx.createOscillator();
         const gain = this.ctx.createGain();
         osc.type = 'sawtooth';
-        osc.frequency.setValueAtTime(450, now);
-        osc.frequency.exponentialRampToValueAtTime(50, now + 0.4);
-        gain.gain.setValueAtTime(0.4, now);
-        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.45);
+        osc.frequency.setValueAtTime(380, now);
+        osc.frequency.exponentialRampToValueAtTime(30, now + 0.45);
+        gain.gain.setValueAtTime(0.45, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
         osc.connect(gain);
         gain.connect(this.ctx.destination);
         osc.start(now);
-        osc.stop(now + 0.48);
+        osc.stop(now + 0.52);
       }
 
-      playNearMiss() {
+      playJump() {
         if (this.isMuted || !this.ctx) return;
         const now = this.ctx.currentTime;
         const osc = this.ctx.createOscillator();
         const gain = this.ctx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(900, now);
-        osc.frequency.exponentialRampToValueAtTime(250, now + 0.18);
-        gain.gain.setValueAtTime(0.22, now);
-        gain.gain.exponentialRampToValueAtTime(0.005, now + 0.2);
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(240, now);
+        osc.frequency.exponentialRampToValueAtTime(800, now + 0.24);
+        gain.gain.setValueAtTime(0.28, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.24);
         osc.connect(gain);
         gain.connect(this.ctx.destination);
         osc.start(now);
-        osc.stop(now + 0.22);
+        osc.stop(now + 0.26);
       }
 
       playCollect() {
         if (this.isMuted || !this.ctx) return;
         const now = this.ctx.currentTime;
-        [523.25, 659.25, 783.99, 1046.50].forEach((freq, idx) => {
+        [440, 554.37, 659.25, 880].forEach((freq, idx) => {
           const osc = this.ctx.createOscillator();
           const gain = this.ctx.createGain();
-          osc.type = 'triangle';
-          osc.frequency.setValueAtTime(freq, now + idx * 0.04);
-          gain.gain.setValueAtTime(0.18, now + idx * 0.04);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.04 + 0.18);
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, now + idx * 0.035);
+          gain.gain.setValueAtTime(0.18, now + idx * 0.035);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.035 + 0.16);
           osc.connect(gain);
           gain.connect(this.ctx.destination);
-          osc.start(now + idx * 0.04);
-          osc.stop(now + idx * 0.04 + 0.2);
+          osc.start(now + idx * 0.035);
+          osc.stop(now + idx * 0.035 + 0.18);
         });
       }
 
@@ -959,9 +978,9 @@
         const osc = this.ctx.createOscillator();
         const gain = this.ctx.createGain();
         osc.type = 'sawtooth';
-        osc.frequency.setValueAtTime(800, now);
-        osc.frequency.exponentialRampToValueAtTime(90, now + 0.35);
-        gain.gain.setValueAtTime(0.35, now);
+        osc.frequency.setValueAtTime(650, now);
+        osc.frequency.exponentialRampToValueAtTime(80, now + 0.35);
+        gain.gain.setValueAtTime(0.4, now);
         gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
         osc.connect(gain);
         gain.connect(this.ctx.destination);
@@ -975,14 +994,14 @@
         const osc = this.ctx.createOscillator();
         const gain = this.ctx.createGain();
         osc.type = 'sawtooth';
-        osc.frequency.setValueAtTime(160, now);
-        osc.frequency.exponentialRampToValueAtTime(25, now + 0.6);
-        gain.gain.setValueAtTime(0.5, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.65);
+        osc.frequency.setValueAtTime(140, now);
+        osc.frequency.exponentialRampToValueAtTime(20, now + 0.65);
+        gain.gain.setValueAtTime(0.55, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.7);
         osc.connect(gain);
         gain.connect(this.ctx.destination);
         osc.start(now);
-        osc.stop(now + 0.7);
+        osc.stop(now + 0.75);
       }
 
       toggleMute() {
@@ -994,14 +1013,15 @@
       }
     }
 
-    const sound = new CyberAudioEngine();
+    const sound = new IndustrialAudioEngine();
 
-    // --- 2. REFINED GLSL POST-PROCESSING SHADER (RADIAL CHROMATIC FALLOFF) ---
-    const CyberpunkPostShader = {
+    // --- 2. CUSTOM POST-PROCESSING GLSL SHADER ---
+    const WipeoutPostShader = {
       uniforms: {
         tDiffuse: { value: null },
         uTime: { value: 0 },
         uBoost: { value: 0 },
+        uDrift: { value: 0 },
         uAberration: { value: 0 },
         uGlitch: { value: 0 },
         uResolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) }
@@ -1017,6 +1037,7 @@
         uniform sampler2D tDiffuse;
         uniform float uTime;
         uniform float uBoost;
+        uniform float uDrift;
         uniform float uAberration;
         uniform float uGlitch;
         uniform vec2 uResolution;
@@ -1029,19 +1050,17 @@
         void main() {
           vec2 uv = vUv;
 
-          // Glitch displacement
           if (uGlitch > 0.01) {
-            float slice = step(0.94, sin(uv.y * 32.0 + uTime * 25.0));
-            uv.x += (rand(vec2(uTime, uv.y)) - 0.5) * 0.04 * uGlitch * slice;
+            float slice = step(0.95, sin(uv.y * 40.0 + uTime * 30.0));
+            uv.x += (rand(vec2(uTime, uv.y)) - 0.5) * 0.03 * uGlitch * slice;
           }
 
           vec2 center = vec2(0.5, 0.5);
           vec2 dir = uv - center;
           float dist = length(dir);
 
-          // Radial falloff: keep center crisp, apply chromatic distortion only toward edges
-          float edgeFalloff = pow(dist * 1.5, 2.2);
-          float abAmount = (uAberration * 0.007 + uBoost * 0.005) * edgeFalloff;
+          float edgeFalloff = pow(dist * 1.3, 2.4);
+          float abAmount = (uAberration * 0.005 + uBoost * 0.004 + uDrift * 0.002) * edgeFalloff;
 
           vec2 redUv = uv + dir * abAmount;
           vec2 greenUv = uv;
@@ -1053,23 +1072,21 @@
 
           vec3 color = vec3(r, g, b);
 
-          // Radial Speed Blur when boosting
-          if (uBoost > 0.05) {
+          float blurStrength = uBoost * 0.28 + uDrift * 0.14;
+          if (blurStrength > 0.02) {
             vec3 blurCol = vec3(0.0);
             const int samples = 5;
             for (int i = 0; i < samples; i++) {
-              float scale = 1.0 - (float(i) / float(samples)) * 0.05 * uBoost;
+              float scale = 1.0 - (float(i) / float(samples)) * 0.035 * blurStrength;
               blurCol += texture2D(tDiffuse, center + dir * scale).rgb;
             }
-            color = mix(color, blurCol / float(samples), uBoost * 0.38);
+            color = mix(color, blurCol / float(samples), blurStrength * 0.4);
           }
 
-          // Cinematic Subtle Vignette
-          float vignette = smoothstep(0.9, 0.36, dist);
+          float vignette = smoothstep(0.95, 0.45, dist);
           color *= vignette;
 
-          // Subtle Scanlines
-          float scanline = sin(uv.y * uResolution.y * 1.5) * 0.025;
+          float scanline = sin(uv.y * uResolution.y * 1.4) * 0.018;
           color -= scanline;
 
           gl_FragColor = vec4(color, 1.0);
@@ -1077,68 +1094,98 @@
       `
     };
 
-    // --- 3. PROCEDURAL TEXTURES (SKYSCRAPERS & ROAD) ---
-    function generateBuildingFacadeTexture() {
+    // --- 3. PROCEDURAL PBR TEXTURES (TEXTURED WET ASPHALT HIGHWAY) ---
+    function generateWetAsphaltTexture() {
       const canvas = document.createElement('canvas');
-      canvas.width = 512;
+      canvas.width = 1024;
       canvas.height = 1024;
       const ctx = canvas.getContext('2d');
 
-      ctx.fillStyle = '#070414';
-      ctx.fillRect(0, 0, 512, 1024);
+      ctx.fillStyle = '#0a0d12';
+      ctx.fillRect(0, 0, 1024, 1024);
 
-      // Window grid with randomized lit windows
-      const rows = 48;
-      const cols = 16;
-      const padX = 8;
-      const padY = 6;
-      const winW = (512 - padX * (cols + 1)) / cols;
-      const winH = (1024 - padY * (rows + 1)) / rows;
-
-      for (let r = 0; r < rows; r++) {
-        for (let c = 0; c < cols; c++) {
-          const x = padX + c * (winW + padX);
-          const y = padY + r * (winH + padY);
-
-          const rand = Math.random();
-          if (rand < 0.28) {
-            ctx.fillStyle = '#00f0ff'; // Cyan lit window
-            ctx.fillRect(x, y, winW, winH);
-          } else if (rand < 0.42) {
-            ctx.fillStyle = '#ff007f'; // Pink lit window
-            ctx.fillRect(x, y, winW, winH);
-          } else if (rand < 0.55) {
-            ctx.fillStyle = '#ffe600'; // Amber lit window
-            ctx.fillRect(x, y, winW, winH);
-          } else {
-            ctx.fillStyle = '#100c24'; // Unlit dark window
-            ctx.fillRect(x, y, winW, winH);
-          }
-        }
+      const imgData = ctx.getImageData(0, 0, 1024, 1024);
+      const data = imgData.data;
+      for (let i = 0; i < data.length; i += 4) {
+        const noise = (Math.random() - 0.5) * 22;
+        data[i] = Math.max(0, Math.min(255, data[i] + noise));
+        data[i + 1] = Math.max(0, Math.min(255, data[i + 1] + noise));
+        data[i + 2] = Math.max(0, Math.min(255, data[i + 2] + noise));
       }
+      ctx.putImageData(imgData, 0, 0);
+
+      // Procedural worn damp dashed centerline
+      ctx.fillStyle = 'rgba(255, 170, 0, 0.45)';
+      for (let y = 0; y < 1024; y += 128) {
+        ctx.fillRect(508, y + 16, 8, 80);
+      }
+
+      // Lateral white guide dashes
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.25)';
+      for (let y = 0; y < 1024; y += 128) {
+        ctx.fillRect(200, y + 20, 4, 70);
+        ctx.fillRect(820, y + 20, 4, 70);
+      }
+
+      // Concrete expansion seams
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.75)';
+      ctx.fillRect(0, 510, 1024, 4);
 
       const tex = new THREE.CanvasTexture(canvas);
       tex.wrapS = THREE.RepeatWrapping;
       tex.wrapT = THREE.RepeatWrapping;
-      tex.repeat.set(1, 1);
+      tex.repeat.set(1, 4);
       return tex;
     }
 
-    const buildingFacadeTexture = generateBuildingFacadeTexture();
+    function generateIndustrialSignTexture(title, code, color = '#ff6a00') {
+      const canvas = document.createElement('canvas');
+      canvas.width = 512;
+      canvas.height = 128;
+      const ctx = canvas.getContext('2d');
+
+      ctx.fillStyle = '#080a0f';
+      ctx.fillRect(0, 0, 512, 128);
+
+      ctx.fillStyle = color;
+      ctx.fillRect(6, 6, 12, 116);
+      ctx.fillRect(494, 6, 12, 116);
+
+      ctx.font = '900 28px monospace';
+      ctx.fillStyle = color;
+      ctx.shadowColor = color;
+      ctx.shadowBlur = 10;
+      ctx.fillText(title, 36, 52);
+
+      ctx.font = '700 16px monospace';
+      ctx.fillStyle = '#8a9ba8';
+      ctx.shadowBlur = 0;
+      ctx.fillText(code, 36, 92);
+
+      const tex = new THREE.CanvasTexture(canvas);
+      tex.needsUpdate = true;
+      return tex;
+    }
+
+    const asphaltTex = generateWetAsphaltTexture();
+    const gantrySignTex1 = generateIndustrialSignTexture('SECTOR 04 // MAG-ACCEL', 'CAUTION: HIGH VOLTAGE GRID', '#ff6a00');
+    const gantrySignTex2 = generateIndustrialSignTexture('ORBITAL SKYWAY 09', 'MAX REC SPEED: 380 KM/H', '#00f0ff');
+    const gantrySignTex3 = generateIndustrialSignTexture('HAZARD DETECTED', 'AUTOMATED BLAST SYSTEM', '#ff1e38');
+    const gantrySignTextures = [gantrySignTex1, gantrySignTex2, gantrySignTex3];
 
     // --- 4. THREE.JS SCENE SETUP & EFFECT COMPOSER ---
     const container = document.getElementById('canvas-container');
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x05020f, 0.0075);
+    scene.fog = new THREE.FogExp2(0x040608, 0.009);
 
-    const camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 0.1, 800);
-    camera.position.set(0, 3.4, 6.8);
+    const camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 0.1, 700);
+    camera.position.set(0, 3.8, 8.5);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.25;
+    renderer.toneMappingExposure = 1.2;
     container.appendChild(renderer.domElement);
 
     let useBloom = true;
@@ -1148,538 +1195,399 @@
 
     const bloomPass = new THREE.UnrealBloomPass(
       new THREE.Vector2(window.innerWidth, window.innerHeight),
-      1.35, // strength
-      0.45, // radius
-      0.72  // threshold
+      0.75,
+      0.35,
+      0.82
     );
     composer.addPass(bloomPass);
 
-    const cyberpunkPass = new THREE.ShaderPass(CyberpunkPostShader);
-    cyberpunkPass.renderToScreen = true;
-    composer.addPass(cyberpunkPass);
+    const wipeoutPass = new THREE.ShaderPass(WipeoutPostShader);
+    wipeoutPass.renderToScreen = true;
+    composer.addPass(wipeoutPass);
 
-    // Lighting
-    const ambientLight = new THREE.AmbientLight(0x18102a, 1.4);
+    // Symmetric Balanced Lighting (No unbalanced side flare)
+    const ambientLight = new THREE.AmbientLight(0x18202a, 1.3);
     scene.add(ambientLight);
 
-    const dirLight = new THREE.DirectionalLight(0x00f0ff, 1.5);
-    dirLight.position.set(20, 30, 10);
-    scene.add(dirLight);
+    const overheadLight = new THREE.DirectionalLight(0xffa255, 1.2);
+    overheadLight.position.set(0, 35, 10);
+    scene.add(overheadLight);
 
-    const pinkBacklight = new THREE.DirectionalLight(0xff007f, 1.2);
-    pinkBacklight.position.set(-20, 15, -30);
-    scene.add(pinkBacklight);
+    const rimLightL = new THREE.DirectionalLight(0x00d0ff, 0.65);
+    rimLightL.position.set(-22, 25, -35);
+    scene.add(rimLightL);
 
-    // Synthwave Sun
-    function createSynthwaveSun() {
-      const sunGroup = new THREE.Group();
-      const sunGeo = new THREE.CircleGeometry(48, 48);
-      const sunMat = new THREE.MeshBasicMaterial({ color: 0xff0066, fog: false, side: THREE.DoubleSide });
-      const sunMesh = new THREE.Mesh(sunGeo, sunMat);
-      sunMesh.position.set(0, 22, -350);
-      sunGroup.add(sunMesh);
+    const rimLightR = new THREE.DirectionalLight(0xffa255, 0.65);
+    rimLightR.position.set(22, 25, -35);
+    scene.add(rimLightR);
 
-      for (let i = 0; i < 9; i++) {
-        const stripeGeo = new THREE.PlaneGeometry(98, 1.8 + i * 0.45);
-        const stripeMat = new THREE.MeshBasicMaterial({ color: 0x05020f, fog: false });
-        const stripe = new THREE.Mesh(stripeGeo, stripeMat);
-        stripe.position.set(0, 3 + i * 4.0, -348);
-        sunGroup.add(stripe);
+    // High-Altitude Sky Conduits & Megastructure Towers
+    function createAtmosphericMegastructure() {
+      const megaGroup = new THREE.Group();
+      for (let i = 0; i < 12; i++) {
+        const h = 180;
+        const towerGeo = new THREE.BoxGeometry(18, h, 24);
+        const towerMat = new THREE.MeshStandardMaterial({
+          color: 0x080a0e,
+          roughness: 0.85,
+          metalness: 0.25
+        });
+        const towerL = new THREE.Mesh(towerGeo, towerMat);
+        towerL.position.set(-65 - (i % 3) * 15, h / 2 - 20, -i * 65);
+        megaGroup.add(towerL);
+
+        const towerR = new THREE.Mesh(towerGeo, towerMat);
+        towerR.position.set(65 + (i % 3) * 15, h / 2 - 20, -i * 65);
+        megaGroup.add(towerR);
+
+        const beaconGeo = new THREE.SphereGeometry(0.6, 8, 8);
+        const beaconMat = new THREE.MeshBasicMaterial({ color: 0xff1e38 });
+        const beaconL = new THREE.Mesh(beaconGeo, beaconMat);
+        beaconL.position.set(-65 - (i % 3) * 15, h - 20, -i * 65);
+        megaGroup.add(beaconL);
       }
-      scene.add(sunGroup);
+      scene.add(megaGroup);
     }
-    createSynthwaveSun();
+    createAtmosphericMegastructure();
 
-    // Floating Cyber Embers
-    const starCount = 700;
-    const starGeo = new THREE.BufferGeometry();
-    const starPos = new Float32Array(starCount * 3);
-    for (let i = 0; i < starCount * 3; i += 3) {
-      starPos[i] = (Math.random() - 0.5) * 600;
-      starPos[i + 1] = Math.random() * 180 + 10;
-      starPos[i + 2] = -Math.random() * 400 - 30;
+    // Volumetric Rain & Atmosphere Mist
+    const rainCount = 900;
+    const rainGeo = new THREE.BufferGeometry();
+    const rainPos = new Float32Array(rainCount * 3);
+    for (let i = 0; i < rainCount * 3; i += 3) {
+      rainPos[i] = (Math.random() - 0.5) * 80;
+      rainPos[i + 1] = Math.random() * 25;
+      rainPos[i + 2] = -Math.random() * 180;
     }
-    starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
-    const starMat = new THREE.PointsMaterial({ color: 0x00ffff, size: 1.4, transparent: true, opacity: 0.85 });
-    const starPoints = new THREE.Points(starGeo, starMat);
-    scene.add(starPoints);
+    rainGeo.setAttribute('position', new THREE.BufferAttribute(rainPos, 3));
+    const rainMat = new THREE.PointsMaterial({ color: 0x8a9ba8, size: 0.32, transparent: true, opacity: 0.45 });
+    const rainPoints = new THREE.Points(rainGeo, rainMat);
+    scene.add(rainPoints);
 
-    // Dynamic Speed Warp Lines (Hyperspace Tunnel)
-    const warpCount = 140;
-    const warpGeo = new THREE.BufferGeometry();
-    const warpPos = new Float32Array(warpCount * 6);
-    for (let i = 0; i < warpCount; i++) {
-      const angle = Math.random() * Math.PI * 2;
-      const radius = 6 + Math.random() * 18;
-      const z = -Math.random() * 250;
-      const len = 8 + Math.random() * 16;
-      warpPos[i * 6] = Math.cos(angle) * radius;
-      warpPos[i * 6 + 1] = Math.sin(angle) * radius + 2;
-      warpPos[i * 6 + 2] = z;
+    // --- 5. BESPOKE ANTI-GRAVITY RACING CRAFT WITH MECHANICAL AIRBRAKES ---
+    function buildAGCraft() {
+      const craft = new THREE.Group();
 
-      warpPos[i * 6 + 3] = Math.cos(angle) * radius;
-      warpPos[i * 6 + 4] = Math.sin(angle) * radius + 2;
-      warpPos[i * 6 + 5] = z - len;
-    }
-    warpGeo.setAttribute('position', new THREE.BufferAttribute(warpPos, 3));
-    const warpMat = new THREE.LineBasicMaterial({ color: 0x00ffff, transparent: true, opacity: 0.0 });
-    const warpLines = new THREE.LineSegments(warpGeo, warpMat);
-    scene.add(warpLines);
+      const noseShape = new THREE.Shape();
+      noseShape.moveTo(0, 2.4);
+      noseShape.lineTo(0.7, 0.4);
+      noseShape.lineTo(0.9, -1.8);
+      noseShape.lineTo(-0.9, -1.8);
+      noseShape.lineTo(-0.7, 0.4);
+      noseShape.closePath();
 
-    // --- 5. AAA HOVERCRAFT CRAFTING ---
-    function buildHovercraft() {
-      const ship = new THREE.Group();
+      const hullSettings = { depth: 0.45, bevelEnabled: true, bevelSegments: 3, steps: 1, bevelSize: 0.08, bevelThickness: 0.08 };
+      const hullGeo = new THREE.ExtrudeGeometry(noseShape, hullSettings);
+      const hullMat = new THREE.MeshStandardMaterial({
+        color: 0x141820,
+        metalness: 0.92,
+        roughness: 0.22,
+      });
+      const hull = new THREE.Mesh(hullGeo, hullMat);
+      hull.rotation.x = Math.PI / 2;
+      hull.position.y = 0.22;
+      craft.add(hull);
 
-      // Main Aerodynamic Fuselage
-      const bodyGeo = new THREE.ConeGeometry(1.25, 3.8, 6);
-      const bodyMat = new THREE.MeshStandardMaterial({
-        color: 0x0a0a16,
+      const stripeGeo = new THREE.BoxGeometry(0.35, 0.06, 3.2);
+      const stripeMat = new THREE.MeshStandardMaterial({ color: 0xff6a00, roughness: 0.3, metalness: 0.8 });
+      const stripe = new THREE.Mesh(stripeGeo, stripeMat);
+      stripe.position.set(0, 0.48, -0.2);
+      craft.add(stripe);
+
+      const canopyGeo = new THREE.ConeGeometry(0.42, 2.2, 16);
+      const canopyMat = new THREE.MeshStandardMaterial({
+        color: 0x05080c,
+        roughness: 0.05,
+        metalness: 0.98,
+      });
+      const canopy = new THREE.Mesh(canopyGeo, canopyMat);
+      canopy.rotation.x = -Math.PI / 2;
+      canopy.scale.set(0.9, 0.45, 1.0);
+      canopy.position.set(0, 0.52, -0.3);
+      craft.add(canopy);
+
+      const podGeo = new THREE.CylinderGeometry(0.32, 0.36, 2.6, 16);
+      const podMat = new THREE.MeshStandardMaterial({
+        color: 0x181e28,
         metalness: 0.95,
-        roughness: 0.18,
+        roughness: 0.18
       });
-      const body = new THREE.Mesh(bodyGeo, bodyMat);
-      body.rotation.x = Math.PI / 2;
-      body.rotation.y = Math.PI;
-      body.scale.set(0.95, 1, 0.42);
-      ship.add(body);
 
-      // Crystalline Cockpit Glass
-      const cockpitGeo = new THREE.SphereGeometry(0.58, 20, 14);
-      const cockpitMat = new THREE.MeshStandardMaterial({
-        color: 0x00ffff,
-        emissive: 0x0088aa,
-        emissiveIntensity: 0.8,
-        roughness: 0.1,
-        metalness: 0.9,
-      });
-      const cockpit = new THREE.Mesh(cockpitGeo, cockpitMat);
-      cockpit.position.set(0, 0.32, -0.25);
-      cockpit.scale.set(0.8, 0.45, 1.65);
-      ship.add(cockpit);
+      const rightPod = new THREE.Mesh(podGeo, podMat);
+      rightPod.rotation.x = Math.PI / 2;
+      rightPod.position.set(1.15, 0.25, 0.4);
+      craft.add(rightPod);
 
-      // Swept Delta Wings
-      const wingShape = new THREE.Shape();
-      wingShape.moveTo(0, 0);
-      wingShape.lineTo(2.5, -1.3);
-      wingShape.lineTo(2.2, -1.9);
-      wingShape.lineTo(0, -0.65);
-      wingShape.closePath();
+      const leftPod = rightPod.clone();
+      leftPod.position.x = -1.15;
+      craft.add(leftPod);
 
-      const extrudeSettings = { depth: 0.12, bevelEnabled: true, bevelSegments: 2, steps: 1, bevelSize: 0.04, bevelThickness: 0.04 };
-      const wingGeo = new THREE.ExtrudeGeometry(wingShape, extrudeSettings);
-      const wingMat = new THREE.MeshStandardMaterial({ color: 0x140e26, metalness: 0.85, roughness: 0.25 });
+      const pylonGeo = new THREE.BoxGeometry(0.65, 0.08, 1.2);
+      const pylonR = new THREE.Mesh(pylonGeo, hullMat);
+      pylonR.position.set(0.65, 0.25, 0.3);
+      craft.add(pylonR);
 
-      const rightWing = new THREE.Mesh(wingGeo, wingMat);
-      rightWing.rotation.x = Math.PI / 2;
-      rightWing.position.set(0.42, 0.06, 0.65);
-      ship.add(rightWing);
+      const pylonL = pylonR.clone();
+      pylonL.position.x = -0.65;
+      craft.add(pylonL);
 
-      const leftWing = rightWing.clone();
-      leftWing.scale.x = -1;
-      leftWing.position.x = -0.42;
-      ship.add(leftWing);
+      // Mecha-Grade Articulated Airbrakes
+      function buildAirbrakeFlap() {
+        const brakeGroup = new THREE.Group();
 
-      // Tilting Elevon Flaps (Ailerons)
-      const flapGeo = new THREE.BoxGeometry(1.2, 0.08, 0.35);
-      const flapMat = new THREE.MeshStandardMaterial({ color: 0x221838, metalness: 0.9 });
+        const flapGeo = new THREE.BoxGeometry(0.42, 0.05, 0.75);
+        const flapMat = new THREE.MeshStandardMaterial({
+          color: 0x121620,
+          metalness: 0.85,
+          roughness: 0.3
+        });
+        const flap = new THREE.Mesh(flapGeo, flapMat);
+        flap.position.set(0, 0, -0.35);
+        brakeGroup.add(flap);
 
-      const rightFlap = new THREE.Mesh(flapGeo, flapMat);
-      rightFlap.position.set(1.4, 0.06, 1.45);
-      ship.add(rightFlap);
-      ship.rightFlap = rightFlap;
+        const edgeGeo = new THREE.BoxGeometry(0.44, 0.06, 0.12);
+        const edgeMat = new THREE.MeshStandardMaterial({ color: 0xff6a00, roughness: 0.4 });
+        const edge = new THREE.Mesh(edgeGeo, edgeMat);
+        edge.position.set(0, 0.01, -0.72);
+        brakeGroup.add(edge);
 
-      const leftFlap = new THREE.Mesh(flapGeo, flapMat);
-      leftFlap.position.set(-1.4, 0.06, 1.45);
-      ship.add(leftFlap);
-      ship.leftFlap = leftFlap;
+        const pistonGeo = new THREE.CylinderGeometry(0.04, 0.04, 0.4, 8);
+        const pistonMat = new THREE.MeshStandardMaterial({ color: 0xcccccc, metalness: 0.98, roughness: 0.1 });
+        const piston = new THREE.Mesh(pistonGeo, pistonMat);
+        piston.position.set(0, -0.15, -0.35);
+        brakeGroup.add(piston);
 
-      // Neon Hull Edge Trims
-      const stripeGeo = new THREE.BoxGeometry(0.08, 0.08, 2.9);
-      const stripeMat = new THREE.MeshBasicMaterial({ color: 0x00ffff });
-      const stripeR = new THREE.Mesh(stripeGeo, stripeMat);
-      stripeR.position.set(0.58, 0.12, 0);
-      ship.add(stripeR);
+        return brakeGroup;
+      }
 
-      const stripeL = stripeR.clone();
-      stripeL.position.x = -0.58;
-      ship.add(stripeL);
+      const rightBrake = buildAirbrakeFlap();
+      rightBrake.position.set(1.15, 0.52, 1.35);
+      craft.add(rightBrake);
+      craft.rightBrake = rightBrake;
 
-      // Dual Heavy Plasma Thruster Nozzles
-      const thrusterGeo = new THREE.CylinderGeometry(0.24, 0.28, 0.65, 16);
-      const thrusterMat = new THREE.MeshStandardMaterial({ color: 0x1f1f2e, metalness: 0.95, roughness: 0.15 });
+      const leftBrake = buildAirbrakeFlap();
+      leftBrake.position.set(-1.15, 0.52, 1.35);
+      craft.add(leftBrake);
+      craft.leftBrake = leftBrake;
 
-      const t1 = new THREE.Mesh(thrusterGeo, thrusterMat);
-      t1.rotation.x = Math.PI / 2;
-      t1.position.set(0.46, 0.02, 1.65);
-      ship.add(t1);
+      const nozzleGeo = new THREE.ConeGeometry(0.22, 0.85, 14);
+      const nozzleMat = new THREE.MeshBasicMaterial({ color: 0xff6a00 });
 
-      const t2 = t1.clone();
-      t2.position.x = -0.46;
-      ship.add(t2);
+      const flameR = new THREE.Mesh(nozzleGeo, nozzleMat);
+      flameR.rotation.x = -Math.PI / 2;
+      flameR.position.set(1.15, 0.25, 1.85);
+      craft.add(flameR);
+      craft.flameR = flameR;
 
-      // Glowing Inner Plasma Cones
-      const flameConeGeo = new THREE.ConeGeometry(0.2, 0.9, 14);
-      const flameMat = new THREE.MeshBasicMaterial({ color: 0x00ffff });
-      const flame1 = new THREE.Mesh(flameConeGeo, flameMat);
-      flame1.rotation.x = -Math.PI / 2;
-      flame1.position.set(0.46, 0.02, 2.05);
-      ship.add(flame1);
-      ship.flame1 = flame1;
+      const flameL = flameR.clone();
+      flameL.position.x = -1.15;
+      craft.add(flameL);
+      craft.flameL = flameL;
 
-      const flame2 = flame1.clone();
-      flame2.position.x = -0.46;
-      ship.add(flame2);
-      ship.flame2 = flame2;
-
-      // Dynamic Underglow PointLight
-      const underglow = new THREE.PointLight(0x00ffff, 4.0, 14, 1.6);
-      underglow.position.set(0, -0.4, 0);
-      ship.add(underglow);
-      ship.underglow = underglow;
-
-      // Headlight Beam
-      const headSpot = new THREE.SpotLight(0x00ffff, 4.5, 45, Math.PI / 5, 0.45, 1);
-      headSpot.position.set(0, 0.3, -1);
-      headSpot.target.position.set(0, 0, -35);
-      ship.add(headSpot);
-      ship.add(headSpot.target);
-
-      // Quantum Hex Shield Mesh
-      const shieldGeo = new THREE.IcosahedronGeometry(2.3, 2);
+      const shieldGeo = new THREE.IcosahedronGeometry(2.4, 2);
       const shieldMat = new THREE.MeshBasicMaterial({
-        color: 0x00ffff,
+        color: 0x00f0ff,
         wireframe: true,
         transparent: true,
         opacity: 0.0
       });
       const shield = new THREE.Mesh(shieldGeo, shieldMat);
-      ship.add(shield);
-      ship.shieldMesh = shield;
+      craft.add(shield);
+      craft.shieldMesh = shield;
 
-      ship.position.set(0, 0.9, 0);
-      return ship;
+      craft.position.set(0, 0.9, 0);
+      return craft;
     }
 
-    const player = buildHovercraft();
+    const player = buildAGCraft();
     scene.add(player);
 
-    // Thruster Spark Trail
-    const sparkCount = 80;
+    // Dual Engine Ion Trail Particles
+    const sparkCount = 90;
     const sparkGeo = new THREE.BufferGeometry();
     const sparkPos = new Float32Array(sparkCount * 3);
     const sparkCol = new Float32Array(sparkCount * 3);
     for (let i = 0; i < sparkCount; i++) {
-      sparkPos[i * 3] = (Math.random() - 0.5) * 1.5;
-      sparkPos[i * 3 + 1] = 0.9 + (Math.random() - 0.5) * 0.4;
-      sparkPos[i * 3 + 2] = 2 + Math.random() * 15;
-      sparkCol[i * 3] = 0.0;
-      sparkCol[i * 3 + 1] = 0.95;
-      sparkCol[i * 3 + 2] = 1.0;
+      sparkPos[i * 3] = (Math.random() - 0.5) * 2.2;
+      sparkPos[i * 3 + 1] = 0.9 + (Math.random() - 0.5) * 0.3;
+      sparkPos[i * 3 + 2] = 2 + Math.random() * 16;
+      sparkCol[i * 3] = 1.0;
+      sparkCol[i * 3 + 1] = 0.42;
+      sparkCol[i * 3 + 2] = 0.0;
     }
     sparkGeo.setAttribute('position', new THREE.BufferAttribute(sparkPos, 3));
     sparkGeo.setAttribute('color', new THREE.BufferAttribute(sparkCol, 3));
-    const sparkMat = new THREE.PointsMaterial({ size: 0.38, vertexColors: true, transparent: true, opacity: 0.9 });
+    const sparkMat = new THREE.PointsMaterial({ size: 0.32, vertexColors: true, transparent: true, opacity: 0.85 });
     const thrusterSparks = new THREE.Points(sparkGeo, sparkMat);
     scene.add(thrusterSparks);
 
-    // --- 6. PROCEDURAL HIGHWAY & CITY ENVIRONMENT ---
-    const ROAD_WIDTH = 14;
-    const SEGMENT_LENGTH = 32;
+    // Drift Lateral Sparks System
+    const driftSparkCount = 60;
+    const driftSparkGeo = new THREE.BufferGeometry();
+    const driftSparkPos = new Float32Array(driftSparkCount * 3);
+    for (let i = 0; i < driftSparkCount * 3; i++) driftSparkPos[i] = 999;
+    driftSparkGeo.setAttribute('position', new THREE.BufferAttribute(driftSparkPos, 3));
+    const driftSparkMat = new THREE.PointsMaterial({ color: 0x00f0ff, size: 0.4, transparent: true, opacity: 0.9 });
+    const driftSparks = new THREE.Points(driftSparkGeo, driftSparkMat);
+    scene.add(driftSparks);
+
+    // --- 6. INDUSTRIAL HIGHWAY TRACK & OVERHEAD GANTRIES ---
+    const ROAD_WIDTH = 15;
+    const SEGMENT_LENGTH = 36;
     const TOTAL_SEGMENTS = 14;
     const trackSegments = [];
     const activeObstacles = [];
     const activeCollectibles = [];
 
-    // Billboard Textures Generator
-    function generateBillboardTexture(text, subtext, color = '#00ffff') {
-      const canvas = document.createElement('canvas');
-      canvas.width = 512;
-      canvas.height = 256;
-      const ctx = canvas.getContext('2d');
-
-      ctx.fillStyle = '#0a0618';
-      ctx.fillRect(0, 0, 512, 256);
-
-      ctx.strokeStyle = color;
-      ctx.lineWidth = 8;
-      ctx.strokeRect(10, 10, 492, 236);
-
-      ctx.fillStyle = color;
-      ctx.shadowColor = color;
-      ctx.shadowBlur = 18;
-      ctx.font = '900 48px sans-serif';
-      ctx.textAlign = 'center';
-      ctx.fillText(text, 256, 115);
-
-      ctx.fillStyle = '#ffffff';
-      ctx.shadowBlur = 8;
-      ctx.font = '700 22px sans-serif';
-      ctx.fillText(subtext, 256, 175);
-
-      const tex = new THREE.CanvasTexture(canvas);
-      tex.needsUpdate = true;
-      return tex;
-    }
-
-    const billboardTex1 = generateBillboardTexture('NEO TOKYO', 'CYBERDRIVE 2099', '#00ffff');
-    const billboardTex2 = generateBillboardTexture('OVERDRIVE', 'MAXIMUM VELOCITY', '#ff007f');
-    const billboardTex3 = generateBillboardTexture('QUANTUM AI', 'NEURAL MATRIX ONLINE', '#ffe600');
-    const billboardTextures = [billboardTex1, billboardTex2, billboardTex3];
-
-    // Procedural Cyber Skyscraper with illuminated window textures
-    function createBuilding() {
-      const h = 32 + Math.random() * 80;
-      const w = 12 + Math.random() * 16;
-      const d = 12 + Math.random() * 18;
-      const group = new THREE.Group();
-
-      const geo = new THREE.BoxGeometry(w, h, d);
-      const mat = new THREE.MeshStandardMaterial({
-        color: 0x120d24,
-        map: buildingFacadeTexture,
-        emissiveMap: buildingFacadeTexture,
-        emissive: 0xffffff,
-        emissiveIntensity: 0.45,
-        roughness: 0.5,
-        metalness: 0.6
-      });
-      const mesh = new THREE.Mesh(geo, mat);
-      mesh.position.y = h / 2;
-      group.add(mesh);
-
-      // Rooftop Mast with Blinking Beacon
-      const mastGeo = new THREE.CylinderGeometry(0.15, 0.25, 8, 6);
-      const mastMat = new THREE.MeshBasicMaterial({ color: 0x444455 });
-      const mast = new THREE.Mesh(mastGeo, mastMat);
-      mast.position.y = h + 4;
-      group.add(mast);
-
-      const beaconGeo = new THREE.SphereGeometry(0.35, 8, 8);
-      const beaconMat = new THREE.MeshBasicMaterial({ color: 0xff0033 });
-      const beacon = new THREE.Mesh(beaconGeo, beaconMat);
-      beacon.position.y = h + 8;
-      group.add(beacon);
-
-      // Holographic Billboard (Placed cleanly facing inward)
-      if (Math.random() < 0.38) {
-        const bGeo = new THREE.PlaneGeometry(13, 6.5);
-        const bTex = billboardTextures[Math.floor(Math.random() * billboardTextures.length)];
-        const bMat = new THREE.MeshBasicMaterial({ map: bTex, side: THREE.DoubleSide });
-        const bMesh = new THREE.Mesh(bGeo, bMat);
-        bMesh.position.set(0, h * 0.55, d / 2 + 0.3);
-        group.add(bMesh);
-      }
-
-      group.totalHeight = h;
-      return group;
-    }
-
-    // Build Single Track Segment
     function createSegment(zPos, segmentIndex) {
       const group = new THREE.Group();
 
-      // Reflective Wet Road Slab
-      const roadGeo = new THREE.BoxGeometry(ROAD_WIDTH, 0.4, SEGMENT_LENGTH);
+      const roadGeo = new THREE.BoxGeometry(ROAD_WIDTH, 0.45, SEGMENT_LENGTH);
       const roadMat = new THREE.MeshStandardMaterial({
-        color: 0x090514,
-        roughness: 0.32,
-        metalness: 0.78
+        color: 0x12171f,
+        map: asphaltTex,
+        roughness: 0.48, // Balanced PBR roughness
+        metalness: 0.50
       });
       const road = new THREE.Mesh(roadGeo, roadMat);
-      road.position.y = -0.2;
+      road.position.y = -0.22;
       group.add(road);
 
-      // Glowing Neon Guard Rails
-      const railGeo = new THREE.BoxGeometry(0.35, 0.35, SEGMENT_LENGTH);
-      const railMatL = new THREE.MeshBasicMaterial({ color: 0x00f0ff });
-      const railMatR = new THREE.MeshBasicMaterial({ color: 0xff007f });
+      const railGeo = new THREE.BoxGeometry(0.45, 0.65, SEGMENT_LENGTH);
+      const railMat = new THREE.MeshStandardMaterial({ color: 0x1f2633, metalness: 0.7, roughness: 0.4 });
 
-      const railL = new THREE.Mesh(railGeo, railMatL);
-      railL.position.set(-ROAD_WIDTH / 2, 0.18, 0);
+      const railL = new THREE.Mesh(railGeo, railMat);
+      railL.position.set(-ROAD_WIDTH / 2, 0.32, 0);
       group.add(railL);
 
-      const railR = new THREE.Mesh(railGeo, railMatR);
-      railR.position.set(ROAD_WIDTH / 2, 0.18, 0);
+      const railR = new THREE.Mesh(railGeo, railMat);
+      railR.position.set(ROAD_WIDTH / 2, 0.32, 0);
       group.add(railR);
 
-      // Center Lane Divider Dashes
-      const dashGeo = new THREE.BoxGeometry(0.2, 0.04, 3.2);
-      const dashMat = new THREE.MeshBasicMaterial({ color: 0xffe600 });
-      for (let z = -SEGMENT_LENGTH / 2 + 3; z < SEGMENT_LENGTH / 2; z += 6.5) {
-        const dash1 = new THREE.Mesh(dashGeo, dashMat);
-        dash1.position.set(-ROAD_WIDTH / 6, 0.02, z);
-        group.add(dash1);
+      const stripGeo = new THREE.BoxGeometry(0.08, 0.08, SEGMENT_LENGTH);
+      const stripMat = new THREE.MeshBasicMaterial({ color: 0xffaa00 });
+      const stripL = new THREE.Mesh(stripGeo, stripMat);
+      stripL.position.set(-ROAD_WIDTH / 2 + 0.2, 0.65, 0);
+      group.add(stripL);
 
-        const dash2 = new THREE.Mesh(dashGeo, dashMat);
-        dash2.position.set(ROAD_WIDTH / 6, 0.02, z);
-        group.add(dash2);
-      }
+      const stripR = new THREE.Mesh(stripGeo, stripMat);
+      stripR.position.set(ROAD_WIDTH / 2 - 0.2, 0.65, 0);
+      group.add(stripR);
 
-      // Overhead Cyber Truss Gantry on every 4th segment
       if (segmentIndex % 4 === 0) {
-        const archTruss = new THREE.Group();
-        const archBeamGeo = new THREE.BoxGeometry(ROAD_WIDTH + 4, 0.5, 0.8);
-        const archBeamMat = new THREE.MeshStandardMaterial({ color: 0x1f1838, metalness: 0.9 });
-        const archBeam = new THREE.Mesh(archBeamGeo, archBeamMat);
-        archBeam.position.y = 7.5;
-        archTruss.add(archBeam);
+        const gantry = new THREE.Group();
+        const archGeo = new THREE.BoxGeometry(ROAD_WIDTH + 4, 0.6, 1.0);
+        const archMat = new THREE.MeshStandardMaterial({ color: 0x161c24, metalness: 0.9, roughness: 0.3 });
+        const arch = new THREE.Mesh(archGeo, archMat);
+        arch.position.y = 7.8;
+        gantry.add(arch);
 
-        const pylonGeo = new THREE.CylinderGeometry(0.25, 0.3, 7.5, 8);
-        const pylonL = new THREE.Mesh(pylonGeo, archBeamMat);
-        pylonL.position.set(-ROAD_WIDTH / 2 - 1.8, 3.75, 0);
-        archTruss.add(pylonL);
+        const pylonGeo = new THREE.CylinderGeometry(0.3, 0.38, 7.8, 8);
+        const p1 = new THREE.Mesh(pylonGeo, archMat);
+        p1.position.set(-ROAD_WIDTH / 2 - 1.8, 3.9, 0);
+        gantry.add(p1);
 
-        const pylonR = new THREE.Mesh(pylonGeo, archBeamMat);
-        pylonR.position.set(ROAD_WIDTH / 2 + 1.8, 3.75, 0);
-        archTruss.add(pylonR);
+        const p2 = new THREE.Mesh(pylonGeo, archMat);
+        p2.position.set(ROAD_WIDTH / 2 + 1.8, 3.9, 0);
+        gantry.add(p2);
 
-        const signGeo = new THREE.PlaneGeometry(8, 1.8);
-        const signMat = new THREE.MeshBasicMaterial({ color: 0x00ffff, side: THREE.DoubleSide });
+        const signGeo = new THREE.PlaneGeometry(10, 2.5);
+        const signTex = gantrySignTextures[(segmentIndex / 4) % gantrySignTextures.length];
+        const signMat = new THREE.MeshBasicMaterial({ map: signTex, side: THREE.DoubleSide });
         const sign = new THREE.Mesh(signGeo, signMat);
-        sign.position.set(0, 7.5, 0.45);
-        archTruss.add(sign);
+        sign.position.set(0, 7.8, 0.55);
+        gantry.add(sign);
 
-        group.add(archTruss);
+        group.add(gantry);
       }
 
-      // Lateral Light Pillars
-      const poleGeo = new THREE.CylinderGeometry(0.12, 0.12, 7.5, 8);
-      const poleMat = new THREE.MeshStandardMaterial({ color: 0x1f1538, metalness: 0.8 });
-      const lightCapGeo = new THREE.SphereGeometry(0.38, 12, 8);
-
-      [-ROAD_WIDTH / 2 - 1.8, ROAD_WIDTH / 2 + 1.8].forEach((px, idx) => {
-        const pole = new THREE.Mesh(poleGeo, poleMat);
-        pole.position.set(px, 3.75, 0);
-        group.add(pole);
-
-        const cap = new THREE.Mesh(lightCapGeo, new THREE.MeshBasicMaterial({ color: idx === 0 ? 0x00ffff : 0xff007f }));
-        cap.position.set(px, 7.5, 0);
-        group.add(cap);
-      });
-
-      // Flanking Skyscrapers
-      const b1 = createBuilding();
-      b1.position.set(-ROAD_WIDTH / 2 - 24 - Math.random() * 15, 0, (Math.random() - 0.5) * 8);
-      group.add(b1);
-
-      const b2 = createBuilding();
-      b2.position.set(ROAD_WIDTH / 2 + 24 + Math.random() * 15, 0, (Math.random() - 0.5) * 8);
-      group.add(b2);
+      const subPylonGeo = new THREE.CylinderGeometry(1.6, 2.2, 35, 8);
+      const subPylonMat = new THREE.MeshStandardMaterial({ color: 0x0a0c10, roughness: 0.9 });
+      const subPylon = new THREE.Mesh(subPylonGeo, subPylonMat);
+      subPylon.position.set(0, -17.5, 0);
+      group.add(subPylon);
 
       group.position.z = zPos;
       scene.add(group);
       return group;
     }
 
-    // Initialize track
     for (let i = 0; i < TOTAL_SEGMENTS; i++) {
       trackSegments.push(createSegment(-i * SEGMENT_LENGTH, i));
     }
 
-    // Overhead Maglev Skyway Train
-    const maglevGroup = new THREE.Group();
-    const trainBodyGeo = new THREE.BoxGeometry(3.6, 2.8, 38);
-    const trainMat = new THREE.MeshStandardMaterial({
-      color: 0x0a0c20,
-      metalness: 0.9,
-      roughness: 0.2,
-      emissive: 0x00f0ff,
-      emissiveIntensity: 0.25
-    });
-    const trainBody = new THREE.Mesh(trainBodyGeo, trainMat);
-    maglevGroup.add(trainBody);
-
-    const winGeo = new THREE.BoxGeometry(3.7, 0.6, 34);
-    const winMat = new THREE.MeshBasicMaterial({ color: 0x00ffff });
-    const win = new THREE.Mesh(winGeo, winMat);
-    maglevGroup.add(win);
-
-    maglevGroup.position.set(45, 28, -180);
-    scene.add(maglevGroup);
-
-    // --- 7. OBSTACLES, MOVING TRAFFIC & BOOST PADS ---
+    // --- 7. INDUSTRIAL TRACK HAZARDS & ACCEL PADS ---
     function spawnObstacle(z) {
-      const lanes = [-4, 0, 4];
+      const lanes = [-4.5, 0, 4.5];
       const lane = lanes[Math.floor(Math.random() * lanes.length)];
       const rand = Math.random();
       const group = new THREE.Group();
       group.lane = lane;
       group.passed = false;
 
-      if (rand < 0.32) {
-        // Neon Cyber Barrier (Jumpable)
-        group.obstacleType = 'barrier';
-        const barGeo = new THREE.BoxGeometry(3.4, 1.4, 0.6);
-        const barMat = new THREE.MeshStandardMaterial({ color: 0xff0055, emissive: 0xff0044, emissiveIntensity: 0.9, roughness: 0.3 });
-        const barrier = new THREE.Mesh(barGeo, barMat);
-        barrier.position.y = 0.7;
-        group.add(barrier);
+      if (rand < 0.35) {
+        group.obstacleType = 'blast_door';
+        const doorGeo = new THREE.BoxGeometry(3.6, 1.6, 0.8);
+        const doorMat = new THREE.MeshStandardMaterial({
+          color: 0x1f242e,
+          metalness: 0.85,
+          roughness: 0.25
+        });
+        const door = new THREE.Mesh(doorGeo, doorMat);
+        door.position.y = 0.8;
+        group.add(door);
 
-        const stripeGeo = new THREE.BoxGeometry(3.5, 0.26, 0.7);
-        const stripeMat = new THREE.MeshBasicMaterial({ color: 0xffe600 });
-        const st = new THREE.Mesh(stripeGeo, stripeMat);
-        st.position.y = 0.7;
-        group.add(st);
+        const chevGeo = new THREE.BoxGeometry(3.7, 0.3, 0.85);
+        const chevMat = new THREE.MeshBasicMaterial({ color: 0xffaa00 });
+        const chev = new THREE.Mesh(chevGeo, chevMat);
+        chev.position.y = 0.8;
+        group.add(chev);
 
-        group.hitbox = { w: 3.4, h: 1.4, d: 0.8 };
-      } else if (rand < 0.60) {
-        // Dual Plasma Laser Gate
-        group.obstacleType = 'laser_gate';
-        const pylonGeo = new THREE.CylinderGeometry(0.2, 0.2, 3.4, 8);
-        const pylonMat = new THREE.MeshStandardMaterial({ color: 0x333348 });
+        const beaconGeo = new THREE.SphereGeometry(0.2, 8, 8);
+        const beaconMat = new THREE.MeshBasicMaterial({ color: 0xff1e38 });
+        const b = new THREE.Mesh(beaconGeo, beaconMat);
+        b.position.set(0, 1.7, 0);
+        group.add(b);
+
+        group.hitbox = { w: 3.6, h: 1.6, d: 0.9 };
+      } else if (rand < 0.65) {
+        group.obstacleType = 'em_arc';
+        const pylonGeo = new THREE.CylinderGeometry(0.22, 0.28, 3.8, 8);
+        const pylonMat = new THREE.MeshStandardMaterial({ color: 0x161b24, metalness: 0.9 });
 
         const p1 = new THREE.Mesh(pylonGeo, pylonMat);
-        p1.position.set(-1.7, 1.7, 0);
+        p1.position.set(-1.8, 1.9, 0);
         group.add(p1);
 
         const p2 = new THREE.Mesh(pylonGeo, pylonMat);
-        p2.position.set(1.7, 1.7, 0);
+        p2.position.set(1.8, 1.9, 0);
         group.add(p2);
 
-        const beamGeo = new THREE.CylinderGeometry(0.12, 0.12, 3.4, 8);
-        const beamMat = new THREE.MeshBasicMaterial({ color: 0xff0033 });
-        const beam = new THREE.Mesh(beamGeo, beamMat);
-        beam.rotation.z = Math.PI / 2;
-        beam.position.y = 1.7;
-        group.add(beam);
-        group.beam = beam;
+        const arcGeo = new THREE.CylinderGeometry(0.12, 0.12, 3.6, 8);
+        const arcMat = new THREE.MeshBasicMaterial({ color: 0x00f0ff });
+        const arc = new THREE.Mesh(arcGeo, arcMat);
+        arc.rotation.z = Math.PI / 2;
+        arc.position.y = 1.9;
+        group.add(arc);
+        group.arc = arc;
 
-        group.hitbox = { w: 3.4, h: 1.2, d: 0.6, yOffset: 1.7 };
-      } else if (rand < 0.82) {
-        // Floating EMP Sentry Drone
-        group.obstacleType = 'mine';
-        const coreGeo = new THREE.OctahedronGeometry(0.85, 1);
-        const coreMat = new THREE.MeshStandardMaterial({ color: 0x9900ff, emissive: 0x7700ff, emissiveIntensity: 1.0, roughness: 0.2 });
-        const mine = new THREE.Mesh(coreGeo, coreMat);
-        mine.position.y = 1.35;
-        group.add(mine);
-        group.mine = mine;
-
-        const ringGeo = new THREE.TorusGeometry(1.3, 0.06, 8, 24);
-        const ringMat = new THREE.MeshBasicMaterial({ color: 0xff007f });
-        const ring = new THREE.Mesh(ringGeo, ringMat);
-        ring.position.y = 1.35;
-        group.add(ring);
-        group.ring = ring;
-
-        group.hitbox = { w: 1.9, h: 1.9, d: 1.9 };
+        group.hitbox = { w: 3.6, h: 1.3, d: 0.6, yOffset: 1.9 };
       } else {
-        // Moving Cyber Cargo Hauler (Autonomous Traffic!)
-        group.obstacleType = 'truck';
-        const truckGeo = new THREE.BoxGeometry(2.8, 2.2, 5.5);
-        const truckMat = new THREE.MeshStandardMaterial({ color: 0x18122a, metalness: 0.8, roughness: 0.3 });
-        const truck = new THREE.Mesh(truckGeo, truckMat);
-        truck.position.y = 1.1;
-        group.add(truck);
+        group.obstacleType = 'hauler';
+        const haulerGeo = new THREE.BoxGeometry(3.0, 2.4, 6.2);
+        const haulerMat = new THREE.MeshStandardMaterial({ color: 0x181e28, metalness: 0.88, roughness: 0.2 });
+        const hauler = new THREE.Mesh(haulerGeo, haulerMat);
+        hauler.position.y = 1.2;
+        group.add(hauler);
 
-        const tailGeo = new THREE.BoxGeometry(2.4, 0.25, 0.2);
-        const tailMat = new THREE.MeshBasicMaterial({ color: 0xff0044 });
-        const tail = new THREE.Mesh(tailGeo, tailMat);
-        tail.position.set(0, 1.2, 2.8);
-        group.add(tail);
+        const brakeGeo = new THREE.BoxGeometry(2.6, 0.25, 0.2);
+        const brakeMat = new THREE.MeshBasicMaterial({ color: 0xff1e38 });
+        const brakeMesh = new THREE.Mesh(brakeGeo, brakeMat);
+        brakeMesh.position.set(0, 1.2, 3.15);
+        group.add(brakeMesh);
 
-        group.truckSpeed = 22;
-        group.hitbox = { w: 2.8, h: 2.2, d: 5.5 };
+        group.truckSpeed = 24;
+        group.hitbox = { w: 3.0, h: 2.4, d: 6.2 };
       }
 
       group.position.set(lane, 0, z);
@@ -1687,15 +1595,14 @@
       activeObstacles.push(group);
     }
 
-    // Boost Launch Pads (Embedded in road)
-    function spawnBoostPad(z) {
-      const lanes = [-4, 0, 4];
+    function spawnAccelPad(z) {
+      const lanes = [-4.5, 0, 4.5];
       const lane = lanes[Math.floor(Math.random() * lanes.length)];
       const padGroup = new THREE.Group();
-      padGroup.itemType = 'boost_pad';
+      padGroup.itemType = 'accel_pad';
 
-      const padGeo = new THREE.PlaneGeometry(2.8, 3.6);
-      const padMat = new THREE.MeshBasicMaterial({ color: 0x00ffff, side: THREE.DoubleSide });
+      const padGeo = new THREE.PlaneGeometry(3.2, 4.2);
+      const padMat = new THREE.MeshBasicMaterial({ color: 0xff6a00, side: THREE.DoubleSide });
       const pad = new THREE.Mesh(padGeo, padMat);
       pad.rotation.x = -Math.PI / 2;
       pad.position.y = 0.02;
@@ -1706,52 +1613,40 @@
       activeCollectibles.push(padGroup);
     }
 
-    // Collectibles (Data Core, Shield Matrix, Overdrive Star)
     function spawnCollectible(z) {
-      if (Math.random() < 0.25) {
-        spawnBoostPad(z);
+      if (Math.random() < 0.28) {
+        spawnAccelPad(z);
         return;
       }
 
-      const lanes = [-4, 0, 4];
+      const lanes = [-4.5, 0, 4.5];
       const lane = lanes[Math.floor(Math.random() * lanes.length)];
       const itemGroup = new THREE.Group();
       const rand = Math.random();
 
-      if (rand < 0.72) {
-        // Cyan Data Core
-        itemGroup.itemType = 'cube';
-        const geo = new THREE.OctahedronGeometry(0.7, 0);
-        const mat = new THREE.MeshStandardMaterial({ color: 0x00ffff, emissive: 0x00ffff, emissiveIntensity: 0.9, metalness: 0.8 });
-        const cube = new THREE.Mesh(geo, mat);
-        cube.position.y = 1.15;
-        itemGroup.add(cube);
+      if (rand < 0.75) {
+        itemGroup.itemType = 'cell';
+        const geo = new THREE.OctahedronGeometry(0.75, 0);
+        const mat = new THREE.MeshStandardMaterial({ color: 0xff6a00, emissive: 0xff4400, emissiveIntensity: 0.9, metalness: 0.8 });
+        const core = new THREE.Mesh(geo, mat);
+        core.position.y = 1.15;
+        itemGroup.add(core);
 
-        const ringGeo = new THREE.TorusGeometry(0.95, 0.05, 8, 24);
-        const ringMat = new THREE.MeshBasicMaterial({ color: 0x00f0ff });
+        const ringGeo = new THREE.TorusGeometry(0.95, 0.06, 8, 24);
+        const ringMat = new THREE.MeshBasicMaterial({ color: 0xffaa00 });
         const ring = new THREE.Mesh(ringGeo, ringMat);
         ring.position.y = 1.15;
         itemGroup.add(ring);
-        itemGroup.rotator = cube;
+        itemGroup.rotator = core;
         itemGroup.ring = ring;
-      } else if (rand < 0.88) {
-        // Quantum Hex Shield Matrix
+      } else {
         itemGroup.itemType = 'shield';
-        const geo = new THREE.SphereGeometry(0.75, 16, 16);
-        const mat = new THREE.MeshBasicMaterial({ color: 0x70ffaa, wireframe: true });
+        const geo = new THREE.IcosahedronGeometry(0.8, 1);
+        const mat = new THREE.MeshBasicMaterial({ color: 0x00f0ff, wireframe: true });
         const orb = new THREE.Mesh(geo, mat);
         orb.position.y = 1.25;
         itemGroup.add(orb);
         itemGroup.rotator = orb;
-      } else {
-        // Golden Overdrive Star
-        itemGroup.itemType = 'star';
-        const geo = new THREE.IcosahedronGeometry(0.8, 0);
-        const mat = new THREE.MeshStandardMaterial({ color: 0xffe600, emissive: 0xffaa00, emissiveIntensity: 1.2 });
-        const star = new THREE.Mesh(geo, mat);
-        star.position.y = 1.25;
-        itemGroup.add(star);
-        itemGroup.rotator = star;
       }
 
       itemGroup.position.set(lane, 0, z);
@@ -1759,7 +1654,7 @@
       activeCollectibles.push(itemGroup);
     }
 
-    // --- 8. GAME STATE & VARIABLES ---
+    // --- 8. RACING PHYSICS, DRIFT ENGINE & TELEMETRY ---
     const STATE_MENU = 0;
     const STATE_PLAYING = 1;
     const STATE_GAMEOVER = 2;
@@ -1767,26 +1662,27 @@
 
     let score = 0;
     let distance = 0;
-    let highscore = parseInt(localStorage.getItem('neon_overdrive_highscore') || '0', 10);
-    let cubesCount = 0;
-    let baseSpeed = 50;
+    let highscore = parseInt(localStorage.getItem('wipeout_overdrive_record') || '0', 10);
+    let coresHarvested = 0;
+    let baseSpeed = 55;
     let currentSpeed = baseSpeed;
     let targetX = 0;
+    let craftX = 0;
     let playerY = 0.9;
     let velocityY = 0;
     let isJumping = false;
     let boostEnergy = 50;
     let isBoosting = false;
     let boostTimer = 0;
+    let isDrifting = false;
+    let driftFactor = 0;
     let hasShield = false;
     let comboMultiplier = 1.0;
     let comboResetTimer = 0;
     let cameraShake = 0;
-    let isDrafting = false;
 
-    const keys = { left: false, right: false, jump: false, boost: false, brake: false };
+    const keys = { left: false, right: false, jump: false, boost: false, drift: false };
 
-    // DOM Elements
     const hudScore = document.getElementById('hud-score');
     const hudHighScore = document.getElementById('hud-highscore');
     const hudMultiplier = document.getElementById('hud-multiplier');
@@ -1796,46 +1692,47 @@
     const boostStatusText = document.getElementById('boost-status-text');
     const shieldStatus = document.getElementById('shield-status');
     const shieldIndicator = document.getElementById('shield-indicator');
-    const alertBanner = document.getElementById('alert-banner');
-    const draftingTag = document.getElementById('drafting-tag');
+    const airbrakeStatus = document.getElementById('airbrake-status');
+    const airbrakeIndicator = document.getElementById('airbrake-indicator');
+    const tacticalAlert = document.getElementById('tactical-alert');
+    const driftStatusBanner = document.getElementById('drift-status-banner');
     const floatingPopups = document.getElementById('floating-popups');
     const startModal = document.getElementById('start-modal');
     const gameoverModal = document.getElementById('gameover-modal');
 
-    hudHighScore.textContent = `BEST: ${String(highscore).padStart(6, '0')}`;
+    hudHighScore.textContent = `RECORD // ${String(highscore).padStart(6, '0')}`;
 
-    function showAlert(text, color = '#ffe600') {
-      alertBanner.textContent = text;
-      alertBanner.style.color = color;
-      alertBanner.classList.add('show');
-      setTimeout(() => alertBanner.classList.remove('show'), 950);
+    function showTacticalAlert(text, color = '#ff6a00') {
+      tacticalAlert.textContent = text;
+      tacticalAlert.style.color = color;
+      tacticalAlert.classList.add('show');
+      setTimeout(() => tacticalAlert.classList.remove('show'), 900);
     }
 
-    function createFloatingPopup(text, color = '#00ffff', x = window.innerWidth / 2, y = window.innerHeight * 0.45) {
+    function createCombatPopup(text, color = '#ff6a00', x = window.innerWidth / 2, y = window.innerHeight * 0.45) {
       const el = document.createElement('div');
-      el.className = 'popup-text';
+      el.className = 'combat-text';
       el.textContent = text;
       el.style.color = color;
       el.style.left = `${x}px`;
       el.style.top = `${y}px`;
       floatingPopups.appendChild(el);
-      setTimeout(() => el.remove(), 1200);
+      setTimeout(() => el.remove(), 1100);
     }
 
     const btnAudio = document.getElementById('btn-audio-toggle');
     btnAudio.addEventListener('click', () => {
       const active = sound.toggleMute();
-      btnAudio.textContent = active ? '🔊 SFX/BGM: ON' : '🔇 SFX/BGM: OFF';
+      btnAudio.textContent = active ? 'COMMS // LINKED' : 'COMMS // MUTED';
     });
 
     const btnBloom = document.getElementById('btn-bloom-toggle');
     btnBloom.addEventListener('click', () => {
       useBloom = !useBloom;
       bloomPass.enabled = useBloom;
-      btnBloom.textContent = useBloom ? '✨ BLOOM: ON' : '✨ BLOOM: OFF';
+      btnBloom.textContent = useBloom ? 'OPTICS // HDR' : 'OPTICS // SDR';
     });
 
-    // Keyboard Listeners
     window.addEventListener('keydown', (e) => {
       sound.init();
       if (e.code === 'KeyA' || e.code === 'ArrowLeft') keys.left = true;
@@ -1848,7 +1745,7 @@
         keys.boost = true;
         triggerBoost();
       }
-      if (e.code === 'KeyS' || e.code === 'ArrowDown') keys.brake = true;
+      if (e.code === 'KeyS' || e.code === 'ArrowDown') keys.drift = true;
     });
 
     window.addEventListener('keyup', (e) => {
@@ -1856,13 +1753,12 @@
       if (e.code === 'KeyD' || e.code === 'ArrowRight') keys.right = false;
       if (e.code === 'Space' || e.code === 'ArrowUp' || e.code === 'KeyW') keys.jump = false;
       if (e.code === 'ShiftLeft' || e.code === 'ShiftRight' || e.code === 'KeyE') keys.boost = false;
-      if (e.code === 'KeyS' || e.code === 'ArrowDown') keys.brake = false;
+      if (e.code === 'KeyS' || e.code === 'ArrowDown') keys.drift = false;
     });
 
-    // Touch Controls
     const btnTouchL = document.getElementById('btn-touch-left');
     const btnTouchR = document.getElementById('btn-touch-right');
-    const btnTouchJump = document.getElementById('btn-touch-jump');
+    const btnTouchDrift = document.getElementById('btn-touch-drift');
     const btnTouchBoost = document.getElementById('btn-touch-boost');
 
     const bindTouch = (elem, pressFn, releaseFn) => {
@@ -1872,32 +1768,31 @@
 
     bindTouch(btnTouchL, () => keys.left = true, () => keys.left = false);
     bindTouch(btnTouchR, () => keys.right = true, () => keys.right = false);
-    bindTouch(btnTouchJump, () => { keys.jump = true; if (gameState === STATE_PLAYING) doJump(); }, () => keys.jump = false);
+    bindTouch(btnTouchDrift, () => keys.drift = true, () => keys.drift = false);
     bindTouch(btnTouchBoost, () => triggerBoost(), () => keys.boost = false);
 
-    // Game Actions
     function doJump() {
       if (isJumping) return;
       isJumping = true;
-      velocityY = 16.5;
+      velocityY = 17.5;
       sound.playJump();
     }
 
     function triggerBoost() {
       if (isBoosting || boostEnergy < 25) return;
       isBoosting = true;
-      boostTimer = 3.6;
-      sound.playBoost();
-      sound.speak("Hyperdrive active");
-      showAlert('HYPERDRIVE ACTIVE!', '#00ffff');
-      cyberpunkPass.uniforms.uAberration.value = 0.5;
-      cameraShake = 0.4;
+      boostTimer = 3.5;
+      sound.playSonicBoom();
+      sound.speak("Afterburner active");
+      showTacticalAlert('AFTERBURNER ENGAGED', '#ff6a00');
+      wipeoutPass.uniforms.uAberration.value = 0.5;
+      cameraShake = 0.45;
     }
 
     function startGame() {
       sound.init();
       sound.startBGM();
-      sound.speak("Neon Overdrive online");
+      sound.speak("Systems engaged. Anti-gravity active.");
       gameState = STATE_PLAYING;
       startModal.classList.add('hidden');
       gameoverModal.classList.add('hidden');
@@ -1907,23 +1802,23 @@
     function resetGameStats() {
       score = 0;
       distance = 0;
-      cubesCount = 0;
+      coresHarvested = 0;
       currentSpeed = baseSpeed;
       targetX = 0;
+      craftX = 0;
       player.position.set(0, 0.9, 0);
       playerY = 0.9;
       velocityY = 0;
       isJumping = false;
       boostEnergy = 50;
       isBoosting = false;
+      isDrifting = false;
       hasShield = false;
       comboMultiplier = 1.0;
-      isDrafting = false;
-      draftingTag.classList.remove('active');
       player.shieldMesh.material.opacity = 0;
       shieldStatus.textContent = 'OFFLINE';
-      shieldStatus.style.color = '#8888aa';
-      shieldIndicator.style.backgroundColor = '#666';
+      shieldStatus.style.color = '#6a7c8c';
+      shieldIndicator.style.backgroundColor = '#555';
       shieldIndicator.style.boxShadow = 'none';
 
       for (const obs of activeObstacles) scene.remove(obs);
@@ -1931,9 +1826,9 @@
       activeObstacles.length = 0;
       activeCollectibles.length = 0;
 
-      for (let z = -70; z > -360; z -= 38) {
-        if (Math.random() < 0.65) spawnObstacle(z);
-        if (Math.random() < 0.6) spawnCollectible(z - 16);
+      for (let z = -70; z > -380; z -= 40) {
+        if (Math.random() < 0.68) spawnObstacle(z);
+        if (Math.random() < 0.6) spawnCollectible(z - 18);
       }
     }
 
@@ -1943,19 +1838,19 @@
       sound.playCrash();
       sound.speak("Critical impact. Flight terminated.");
 
-      cameraShake = 1.2;
-      cyberpunkPass.uniforms.uGlitch.value = 0.8;
-      cyberpunkPass.uniforms.uAberration.value = 0.7;
+      cameraShake = 1.3;
+      wipeoutPass.uniforms.uGlitch.value = 0.9;
+      wipeoutPass.uniforms.uAberration.value = 0.8;
 
       if (score > highscore) {
         highscore = Math.floor(score);
-        localStorage.setItem('neon_overdrive_highscore', highscore);
-        hudHighScore.textContent = `BEST: ${String(highscore).padStart(6, '0')}`;
+        localStorage.setItem('wipeout_overdrive_record', highscore);
+        hudHighScore.textContent = `RECORD // ${String(highscore).padStart(6, '0')}`;
       }
 
       document.getElementById('go-score').textContent = Math.floor(score);
       document.getElementById('go-distance').textContent = `${Math.floor(distance)}m`;
-      document.getElementById('go-cubes').textContent = cubesCount;
+      document.getElementById('go-cubes').textContent = coresHarvested;
 
       setTimeout(() => {
         gameoverModal.classList.remove('hidden');
@@ -1974,81 +1869,111 @@
       const delta = Math.min(clock.getDelta(), 0.05);
       const elapsedTime = clock.getElapsedTime();
 
-      // Update Shaders
-      cyberpunkPass.uniforms.uTime.value = elapsedTime;
-      cyberpunkPass.uniforms.uAberration.value = Math.max(0, cyberpunkPass.uniforms.uAberration.value - delta * 2.5);
-      cyberpunkPass.uniforms.uGlitch.value = Math.max(0, cyberpunkPass.uniforms.uGlitch.value - delta * 3.0);
+      wipeoutPass.uniforms.uTime.value = elapsedTime;
+      wipeoutPass.uniforms.uAberration.value = Math.max(0, wipeoutPass.uniforms.uAberration.value - delta * 2.5);
+      wipeoutPass.uniforms.uGlitch.value = Math.max(0, wipeoutPass.uniforms.uGlitch.value - delta * 3.0);
 
-      // Animate background Maglev Train
-      maglevGroup.position.z += delta * 45;
-      if (maglevGroup.position.z > 60) maglevGroup.position.z = -350;
+      const rainPosArr = rainPoints.geometry.attributes.position.array;
+      for (let i = 0; i < rainCount; i++) {
+        rainPosArr[i * 3 + 2] += (currentSpeed + 45) * delta;
+        if (rainPosArr[i * 3 + 2] > 10) {
+          rainPosArr[i * 3 + 2] = -180;
+        }
+      }
+      rainPoints.geometry.attributes.position.needsUpdate = true;
 
       if (gameState === STATE_PLAYING) {
+        const steering = (keys.right ? 1 : 0) - (keys.left ? 1 : 0);
+        const driftEngaged = keys.drift && Math.abs(steering) > 0;
+
+        if (driftEngaged && !isDrifting) {
+          sound.playAirbrakeHiss();
+          isDrifting = true;
+          driftStatusBanner.classList.add('active');
+        } else if (!driftEngaged && isDrifting) {
+          isDrifting = false;
+          driftStatusBanner.classList.remove('active');
+        }
+
+        driftFactor = THREE.MathUtils.lerp(driftFactor, isDrifting ? 1.0 : 0.0, delta * 8);
+        wipeoutPass.uniforms.uDrift.value = driftFactor;
+
         let speedMult = 1.0;
         if (isBoosting) {
-          speedMult = 1.95;
+          speedMult = 2.0;
           boostTimer -= delta;
-          boostEnergy = Math.max(0, boostEnergy - delta * 24);
+          boostEnergy = Math.max(0, boostEnergy - delta * 25);
           if (boostTimer <= 0 || boostEnergy <= 0) {
             isBoosting = false;
           }
         } else {
-          boostEnergy = Math.min(100, boostEnergy + delta * 5);
-          if (keys.brake) speedMult = 0.65;
-          if (isDrafting) speedMult *= 1.2;
+          boostEnergy = Math.min(100, boostEnergy + delta * (isDrifting ? 9 : 4.5));
+          if (isDrifting) speedMult = 1.15;
         }
 
-        cyberpunkPass.uniforms.uBoost.value = THREE.MathUtils.lerp(
-          cyberpunkPass.uniforms.uBoost.value,
+        wipeoutPass.uniforms.uBoost.value = THREE.MathUtils.lerp(
+          wipeoutPass.uniforms.uBoost.value,
           isBoosting ? 1.0 : 0.0,
           delta * 8
         );
 
-        distance += currentSpeed * speedMult * delta * 0.45;
-        baseSpeed = 50 + Math.min(distance * 0.022, 50);
+        distance += currentSpeed * speedMult * delta * 0.48;
+        baseSpeed = 55 + Math.min(distance * 0.024, 60);
         currentSpeed = baseSpeed * speedMult;
 
-        sound.updateEnginePitch(currentSpeed / 100, isBoosting);
+        sound.updateEnginePitch(currentSpeed / 100, isBoosting, isDrifting);
 
-        score += currentSpeed * delta * comboMultiplier * (isBoosting ? 2.6 : 1.0);
+        const currentMultiplier = comboMultiplier * (isDrifting ? 1.8 : 1.0);
+        score += currentSpeed * delta * currentMultiplier * (isBoosting ? 2.5 : 1.0);
 
-        if (comboMultiplier > 1.0) {
+        if (isDrifting) {
+          comboMultiplier = Math.min(5.0, comboMultiplier + delta * 0.45);
+          comboResetTimer = 3.5;
+        } else if (comboMultiplier > 1.0) {
           comboResetTimer -= delta;
           if (comboResetTimer <= 0) {
             comboMultiplier = Math.max(1.0, comboMultiplier - 0.5);
-            comboResetTimer = 3.2;
+            comboResetTimer = 2.8;
           }
         }
 
-        const steerSpeed = 17.5;
+        const steerSpeed = isDrifting ? 25.0 : 18.0;
         if (keys.left) targetX -= steerSpeed * delta;
         if (keys.right) targetX += steerSpeed * delta;
         targetX = Math.max(-ROAD_WIDTH / 2 + 1.8, Math.min(ROAD_WIDTH / 2 - 1.8, targetX));
 
-        player.position.x += (targetX - player.position.x) * (delta * 15);
+        craftX += (targetX - craftX) * (delta * (isDrifting ? 9 : 14));
+        player.position.x = craftX;
 
-        const bankAngle = -(targetX - player.position.x) * 0.42;
+        const bankAngle = -(targetX - craftX) * (isDrifting ? 0.55 : 0.42);
         player.rotation.z = bankAngle;
-        player.rotation.y = bankAngle * 0.38;
+        player.rotation.y = bankAngle * 0.35;
 
-        if (player.rightFlap && player.leftFlap) {
-          player.rightFlap.rotation.x = bankAngle * 1.5;
-          player.leftFlap.rotation.x = -bankAngle * 1.5;
+        // Realistic Piston Airbrake Deployment (Flap angles upward)
+        if (player.leftBrake && player.rightBrake) {
+          const leftTarget = (keys.left || isDrifting) ? 0.55 : 0;
+          const rightTarget = (keys.right || isDrifting) ? 0.55 : 0;
+          player.leftBrake.rotation.x = THREE.MathUtils.lerp(player.leftBrake.rotation.x, leftTarget, delta * 15);
+          player.rightBrake.rotation.x = THREE.MathUtils.lerp(player.rightBrake.rotation.x, rightTarget, delta * 15);
         }
 
         if (isJumping) {
-          velocityY -= 40 * delta;
+          velocityY -= 44 * delta;
           playerY += velocityY * delta;
           if (playerY <= 0.9) {
             playerY = 0.9;
             isJumping = false;
             velocityY = 0;
-            cameraShake = 0.2;
+            cameraShake = 0.22;
           }
         } else {
-          playerY = 0.9 + Math.sin(elapsedTime * 8) * 0.09;
+          playerY = 0.9 + Math.sin(elapsedTime * 10) * 0.08;
         }
         player.position.y = playerY;
+
+        const flameScaleZ = isBoosting ? 1.8 : (1.0 + Math.sin(elapsedTime * 20) * 0.15);
+        player.flameR.scale.y = flameScaleZ;
+        player.flameL.scale.y = flameScaleZ;
 
         const roadMove = currentSpeed * delta;
         for (const seg of trackSegments) {
@@ -2058,68 +1983,53 @@
             for (const s of trackSegments) if (s.position.z < minZ) minZ = s.position.z;
             seg.position.z = minZ - SEGMENT_LENGTH;
 
-            if (Math.random() < 0.68) spawnObstacle(seg.position.z + (Math.random() - 0.5) * 12);
-            if (Math.random() < 0.6) spawnCollectible(seg.position.z - 14);
+            if (Math.random() < 0.7) spawnObstacle(seg.position.z + (Math.random() - 0.5) * 12);
+            if (Math.random() < 0.6) spawnCollectible(seg.position.z - 16);
           }
         }
-
-        let draftingDetected = false;
 
         for (let i = activeObstacles.length - 1; i >= 0; i--) {
           const obs = activeObstacles[i];
           let actualMove = roadMove;
-          if (obs.obstacleType === 'truck') {
+          if (obs.obstacleType === 'hauler') {
             actualMove = (currentSpeed - obs.truckSpeed) * delta;
           }
           obs.position.z += actualMove;
 
-          if (obs.obstacleType === 'mine') {
-            obs.mine.rotation.x += delta * 3.5;
-            obs.mine.rotation.y += delta * 2.5;
-            obs.ring.rotation.x += delta * 4;
-            obs.position.x = obs.lane + Math.sin(elapsedTime * 4.5 + obs.position.z) * 1.6;
-          } else if (obs.obstacleType === 'laser_gate') {
-            const glowVal = (Math.sin(elapsedTime * 14) + 1) * 0.5;
-            obs.beam.material.color.setHex(glowVal > 0.4 ? 0xff0044 : 0xffee00);
+          if (obs.obstacleType === 'em_arc') {
+            const flicker = (Math.sin(elapsedTime * 22) + 1) * 0.5;
+            obs.arc.material.color.setHex(flicker > 0.3 ? 0x00f0ff : 0xffffff);
           }
 
           const distZ = Math.abs(obs.position.z - player.position.z);
           const distX = Math.abs(obs.position.x - player.position.x);
 
-          if (obs.obstacleType === 'truck' && distX < 1.4 && obs.position.z < player.position.z && (player.position.z - obs.position.z) < 7.5) {
-            draftingDetected = true;
-            score += 150 * delta;
-            boostEnergy = Math.min(100, boostEnergy + delta * 8);
-          }
-
           if (!obs.passed && obs.position.z > player.position.z) {
             obs.passed = true;
-            if (distX > 1.1 && distX < 3.2 && distZ < 3.2) {
+            if (distX > 1.2 && distX < 3.4 && distZ < 3.2) {
               comboMultiplier = Math.min(5.0, comboMultiplier + 0.5);
-              comboResetTimer = 4.2;
-              const bonus = Math.round(300 * comboMultiplier);
+              comboResetTimer = 4.0;
+              const bonus = Math.round(350 * comboMultiplier);
               score += bonus;
-              sound.playNearMiss();
-              showAlert(`NEAR MISS! +${bonus}`, '#ff007f');
-              createFloatingPopup(`+${bonus} NEAR MISS!`, '#ff007f');
-              cyberpunkPass.uniforms.uAberration.value = 0.3;
+              showTacticalAlert(`NEAR MISS // +${bonus}`, '#00f0ff');
+              createCombatPopup(`+${bonus} NEAR MISS`, '#00f0ff');
+              wipeoutPass.uniforms.uAberration.value = 0.3;
             }
           }
 
-          if (distZ < 1.5 && distX < (obs.hitbox.w / 2 + 0.45)) {
+          if (distZ < 1.5 && distX < (obs.hitbox.w / 2 + 0.5)) {
             let hit = true;
-            if (obs.obstacleType === 'barrier' && player.position.y > 1.75) hit = false;
-            if (obs.obstacleType === 'laser_gate' && (player.position.y < 0.75 || player.position.y > 2.65)) hit = false;
+            if (obs.obstacleType === 'blast_door' && player.position.y > 1.8) hit = false;
+            if (obs.obstacleType === 'em_arc' && (player.position.y < 0.75 || player.position.y > 2.8)) hit = false;
 
             if (hit) {
               if (isBoosting) {
                 scene.remove(obs);
                 activeObstacles.splice(i, 1);
-                score += 600;
-                sound.playNearMiss();
-                createFloatingPopup('+600 SMASH!', '#ffe600');
+                score += 700;
+                createCombatPopup('+700 BLASTED', '#ffaa00');
                 cameraShake = 0.45;
-                cyberpunkPass.uniforms.uAberration.value = 0.4;
+                wipeoutPass.uniforms.uAberration.value = 0.45;
                 continue;
               }
 
@@ -2127,15 +2037,15 @@
                 hasShield = false;
                 player.shieldMesh.material.opacity = 0;
                 shieldStatus.textContent = 'OFFLINE';
-                shieldStatus.style.color = '#8888aa';
-                shieldIndicator.style.backgroundColor = '#666';
+                shieldStatus.style.color = '#6a7c8c';
+                shieldIndicator.style.backgroundColor = '#555';
                 shieldIndicator.style.boxShadow = 'none';
                 sound.playShieldBreak();
                 sound.speak("Shield compromised");
-                showAlert('SHIELD BROKEN!', '#ff0055');
-                createFloatingPopup('SHIELD DEFLECTED!', '#00ff88');
-                cameraShake = 0.75;
-                cyberpunkPass.uniforms.uGlitch.value = 0.5;
+                showTacticalAlert('SHIELD DEFLECTED IMPACT', '#00f0ff');
+                createCombatPopup('SHIELD DEFLECTED', '#00f0ff');
+                cameraShake = 0.7;
+                wipeoutPass.uniforms.uGlitch.value = 0.5;
                 scene.remove(obs);
                 activeObstacles.splice(i, 1);
                 continue;
@@ -2152,13 +2062,6 @@
           }
         }
 
-        isDrafting = draftingDetected;
-        if (isDrafting) {
-          draftingTag.classList.add('active');
-        } else {
-          draftingTag.classList.remove('active');
-        }
-
         for (let i = activeCollectibles.length - 1; i >= 0; i--) {
           const item = activeCollectibles[i];
           item.position.z += roadMove;
@@ -2172,50 +2075,45 @@
             item.ring.rotation.z += delta * 2.8;
           }
 
-          if (item.itemType === 'boost_pad') {
+          if (item.itemType === 'accel_pad') {
             const distPad = Math.abs(item.position.z - player.position.z);
             const distX = Math.abs(item.position.x - player.position.x);
-            if (distPad < 1.6 && distX < 1.5 && player.position.y < 1.4) {
+            if (distPad < 1.8 && distX < 1.6 && player.position.y < 1.4) {
               sound.playSonicBoom();
-              sound.speak("Boost launch!");
+              sound.speak("Mag-accel launch");
               isBoosting = true;
-              boostTimer = 2.8;
-              boostEnergy = Math.min(100, boostEnergy + 30);
-              score += 500 * comboMultiplier;
-              showAlert('SUPER BOOST LAUNCH!', '#00ffff');
-              createFloatingPopup('+500 BOOST LAUNCH!', '#00ffff');
-              cyberpunkPass.uniforms.uAberration.value = 0.6;
-              cameraShake = 0.4;
+              boostTimer = 3.0;
+              boostEnergy = Math.min(100, boostEnergy + 35);
+              score += 600 * comboMultiplier;
+              showTacticalAlert('MAG-ACCEL LAUNCH // +600', '#ff6a00');
+              createCombatPopup('+600 MAG-ACCEL', '#ff6a00');
+              wipeoutPass.uniforms.uAberration.value = 0.6;
+              cameraShake = 0.45;
               scene.remove(item);
               activeCollectibles.splice(i, 1);
               continue;
             }
           } else {
             const dist = item.position.distanceTo(player.position);
-            if (dist < 2.1) {
-              if (item.itemType === 'cube') {
-                cubesCount++;
-                const bonus = Math.round(250 * comboMultiplier);
+            if (dist < 2.2) {
+              if (item.itemType === 'cell') {
+                coresHarvested++;
+                const bonus = Math.round(300 * comboMultiplier);
                 score += bonus;
-                boostEnergy = Math.min(100, boostEnergy + 18);
+                boostEnergy = Math.min(100, boostEnergy + 20);
                 sound.playCollect();
-                createFloatingPopup(`+${bonus} DATA CORE`, '#00ffff');
+                createCombatPopup(`+${bonus} ION CORE`, '#ffaa00');
               } else if (item.itemType === 'shield') {
                 hasShield = true;
                 player.shieldMesh.material.opacity = 0.45;
                 shieldStatus.textContent = 'ONLINE [ACTIVE]';
-                shieldStatus.style.color = '#00ff88';
-                shieldIndicator.style.backgroundColor = '#00ff88';
-                shieldIndicator.style.boxShadow = '0 0 10px #00ff88';
+                shieldStatus.style.color = '#00f0ff';
+                shieldIndicator.style.backgroundColor = '#00f0ff';
+                shieldIndicator.style.boxShadow = '0 0 8px #00f0ff';
                 sound.playCollect();
-                sound.speak("Shield matrix online");
-                showAlert('SHIELD MATRIX ACTIVE!', '#00ff88');
-                createFloatingPopup('SHIELD ONLINE!', '#00ff88');
-              } else if (item.itemType === 'star') {
-                boostEnergy = 100;
-                triggerBoost();
-                sound.playCollect();
-                createFloatingPopup('OVERDRIVE CORE!', '#ffe600');
+                sound.speak("Kinetic defense active");
+                showTacticalAlert('KINETIC SHIELD ONLINE', '#00f0ff');
+                createCombatPopup('SHIELD ONLINE', '#00f0ff');
               }
 
               scene.remove(item);
@@ -2232,67 +2130,79 @@
 
         const sparkArr = thrusterSparks.geometry.attributes.position.array;
         for (let i = 0; i < sparkCount; i++) {
-          sparkArr[i * 3 + 2] += (currentSpeed + 25) * delta;
+          sparkArr[i * 3 + 2] += (currentSpeed + 35) * delta;
           if (sparkArr[i * 3 + 2] > 20) {
-            const side = Math.random() > 0.5 ? 0.46 : -0.46;
-            sparkArr[i * 3] = player.position.x + side + (Math.random() - 0.5) * 0.18;
-            sparkArr[i * 3 + 1] = player.position.y + 0.02 + (Math.random() - 0.5) * 0.18;
+            const side = Math.random() > 0.5 ? 1.15 : -1.15;
+            sparkArr[i * 3] = player.position.x + side + (Math.random() - 0.5) * 0.15;
+            sparkArr[i * 3 + 1] = player.position.y + 0.25 + (Math.random() - 0.5) * 0.15;
             sparkArr[i * 3 + 2] = player.position.z + 1.85;
           }
         }
         thrusterSparks.geometry.attributes.position.needsUpdate = true;
 
-        warpMat.opacity = isBoosting ? 0.75 : Math.max(0, (currentSpeed - 70) / 70) * 0.4;
-        const warpArr = warpLines.geometry.attributes.position.array;
-        for (let i = 0; i < warpCount; i++) {
-          warpArr[i * 6 + 2] += currentSpeed * delta * 2.2;
-          warpArr[i * 6 + 5] += currentSpeed * delta * 2.2;
-          if (warpArr[i * 6 + 5] > 20) {
-            const z = -250 - Math.random() * 80;
-            const len = 12 + Math.random() * 20;
-            warpArr[i * 6 + 2] = z;
-            warpArr[i * 6 + 5] = z - len;
+        const driftArr = driftSparks.geometry.attributes.position.array;
+        if (isDrifting) {
+          for (let i = 0; i < driftSparkCount; i++) {
+            if (driftArr[i * 3 + 2] > 15 || driftArr[i * 3] > 800) {
+              const side = keys.right ? -1.3 : 1.3;
+              driftArr[i * 3] = player.position.x + side + (Math.random() - 0.5) * 0.3;
+              driftArr[i * 3 + 1] = 0.05 + Math.random() * 0.15;
+              driftArr[i * 3 + 2] = player.position.z + 1.2 + Math.random() * 2.0;
+            } else {
+              driftArr[i * 3 + 2] += currentSpeed * delta * 1.5;
+            }
           }
+        } else {
+          for (let i = 0; i < driftSparkCount * 3; i++) driftArr[i] = 999;
         }
-        warpLines.geometry.attributes.position.needsUpdate = true;
+        driftSparks.geometry.attributes.position.needsUpdate = true;
 
         if (hasShield) {
-          player.shieldMesh.rotation.y += delta * 2.2;
-          player.shieldMesh.rotation.x += delta * 1.6;
+          player.shieldMesh.rotation.y += delta * 2.0;
+          player.shieldMesh.rotation.x += delta * 1.4;
         }
 
-        const kmh = Math.floor(currentSpeed * 2.85);
+        const kmh = Math.floor(currentSpeed * 3.1);
+        const gForce = (1.0 + Math.abs(bankAngle) * 2.5 + (isBoosting ? 1.8 : 0)).toFixed(1);
         hudScore.textContent = String(Math.floor(score)).padStart(6, '0');
         hudMultiplier.textContent = `x${comboMultiplier.toFixed(1)}`;
         hudSpeed.textContent = kmh;
-        hudMach.textContent = `MACH ${(kmh / 1235).toFixed(2)}`;
+        hudMach.textContent = `MACH ${(kmh / 1235).toFixed(2)} // ${gForce}G`;
         boostBar.style.width = `${boostEnergy}%`;
 
         if (isBoosting) {
-          boostStatusText.textContent = 'OVERDRIVE ACTIVE!';
-          boostStatusText.style.color = '#ffe600';
+          boostStatusText.textContent = 'AFTERBURNER ACTIVE';
+          boostStatusText.style.color = '#ff6a00';
         } else if (boostEnergy >= 25) {
           boostStatusText.textContent = 'READY [SHIFT]';
-          boostStatusText.style.color = '#00ffff';
+          boostStatusText.style.color = '#00f0ff';
         } else {
-          boostStatusText.textContent = 'CHARGING...';
-          boostStatusText.style.color = '#777';
+          boostStatusText.textContent = 'RECHARGING...';
+          boostStatusText.style.color = '#6a7c8c';
         }
 
-        const targetCamX = player.position.x * 0.38;
-        camera.position.x += (targetCamX - camera.position.x) * (delta * 7);
-        camera.rotation.z = -bankAngle * 0.22;
+        // PERFECT THIRD-PERSON CHASE CAMERA WITH G-FORCE CENTRIFUGAL ROLL
+        const targetCamX = player.position.x * 0.75;
+        camera.position.x += (targetCamX - camera.position.x) * (delta * 9);
+        camera.position.y = player.position.y + 2.6;
+        camera.position.z = player.position.z + 7.6;
 
-        const targetFOV = isBoosting ? 82 : (65 + Math.min(distance * 0.005, 10));
-        camera.fov += (targetFOV - camera.fov) * (delta * 5);
+        // Centrifugal camera roll tilt
+        const rollAngle = -bankAngle * 0.32;
+        camera.up.set(Math.sin(rollAngle), Math.cos(rollAngle), 0);
+        camera.lookAt(player.position.x * 0.4, player.position.y + 0.4, player.position.z - 12);
+
+        const targetFOV = isBoosting ? 84 : (65 + Math.min(distance * 0.006, 12));
+        camera.fov += (targetFOV - camera.fov) * (delta * 6);
         camera.updateProjectionMatrix();
 
       } else {
-        const t = elapsedTime * 0.45;
-        camera.position.x = Math.sin(t) * 4.2;
-        camera.position.y = 4.0 + Math.cos(t * 0.7) * 0.5;
-        camera.rotation.z = 0;
-        camera.lookAt(0, 1.2, -15);
+        const t = elapsedTime * 0.4;
+        camera.up.set(0, 1, 0);
+        camera.position.x = Math.sin(t) * 4.5;
+        camera.position.y = 3.8 + Math.cos(t * 0.6) * 0.4;
+        camera.position.z = 8.5;
+        camera.lookAt(0, 1.0, -18);
       }
 
       if (cameraShake > 0) {
@@ -2314,7 +2224,7 @@
       renderer.setSize(window.innerWidth, window.innerHeight);
       composer.setSize(window.innerWidth, window.innerHeight);
       bloomPass.setSize(window.innerWidth, window.innerHeight);
-      cyberpunkPass.uniforms.uResolution.value.set(window.innerWidth, window.innerHeight);
+      wipeoutPass.uniforms.uResolution.value.set(window.innerWidth, window.innerHeight);
     });
 
     animate();
